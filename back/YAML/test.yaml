@@ -2,60 +2,237 @@ openapi : 3.0.0
 info :
   title : 'API MuseumGO'
   version : '0.1'
+  description : 'A swagger Museum as you never be able to be that swag'
 servers:
   -
     url: 'http://tomansion.fr/MuseumGo-dev'
     description: 'API MuseumGO'
+paths:
+  /WorkArt:
+    put:
+      tags:
+        - WorkArt
+      summary: Update an existing WorkArt
+      description: Update an existing WorkArt by Id
+      operationId: updateWorkArt
+      requestBody:
+        description: Update an existent WorkArt in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkArt'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/WorkArt'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WorkArt'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkArt'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/WorkArt'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: WorkArt not found
+        '405':
+          description: Validation exception
 
+    post:
+      tags:
+        - WorkArt
+      summary: Add a new WorkArt to the store
+      description: Add a new WorkArt to the store
+      operationId: addWorkArt
+      requestBody:
+        description: Create a new WorkArt in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkArt'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/WorkArt'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WorkArt'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkArt'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/WorkArt'
+        '405':
+          description: Invalid input
+  /WorkArt/findBytitle:
+    get:
+      tags:
+        - WorkArt
+      summary: Finds WorkArts by title
+      description: Multiple title values can be provided with comma separated strings
+      operationId: findWorkArtsB title
+      parameters:
+        - name: title
+          in: query
+          description: title values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkArt'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkArt'
+        '400':
+          description: Invalid title value
+  /WorkArt/{WorkArtId}:
+    get:
+      summary: Find WorkArt by 
+      description: Returns a single WorkArt
+      operationId: getWorkArtById
+      parameters:
+        - name: WorkArtId
+          in: path
+          description: ID of WorkArt to return
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkArt'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/WorkArt'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: WorkArt not found
+    post:
+      tags:
+        - WorkArt
+      summary: Updates a WorkArt in the store with form data
+      description: ''
+      operationId: updateWorkArtWithForm
+      parameters:
+        - name: WorkArtId
+          in: path
+          description: ID of WorkArt that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: name
+          in: query
+          description: Name of WorkArt that needs to be updated
+          schema:
+            type: string
+        - name: title
+          in: query
+          description: title of WorkArt that needs to be updated
+          schema:
+            type: string
+      responses:
+        '405':
+          description: Invalid input
+    delete:
+      tags:
+        - WorkArt
+      summary: Deletes a WorkArt
+      description: delete a WorkArt
+      operationId: deleteWorkArt
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: WorkArtId
+          in: path
+          description: WorkArt id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid WorkArt value
 components:
-  WorkArt:
-  type: object
-  required:
-    - title
-  properties:
-    _id:
-      type: integer
-      description: "The unique identifier of the artwork."
-      example: 1
-    title:
-      type: string
-      description: "The title of the artwork."
-      example: "Mona Lisa"
-    author:
-      type: string
-      description: "The author of the artwork."
-      example: "Leonardo da Vinci"
-    location:
-      type: string
-      description: "The current location of the artwork."
-      example: "Louvre Museum"
-    style:
-      type: string
-      description: "The artistic style of the artwork."
-      example: "High Renaissance"
-    period:
-      type: string
-      description: "The artistic period to which the artwork belongs."
-      example: "16th century"
-    popularity:
-      type: integer
-      description: "The popularity of the artwork on a scale of 1 to 10."
-      example: 10
-    photo:
-      type: string
-      description: "URL of the artwork's photo."
-      example: "https://example.com/monalisa.jpg"
-    description:
+  schemas:
+    WorkArt:
       type: object
+      required:
+        - title
       properties:
-        en:
+        _id:
+          type: integer
+          description: "The unique identifier of the artwork."
+          example: 1
+        title:
           type: string
-          description: "Description of the artwork in English."
-          example: "The Mona Lisa, painted by Leonardo da Vinci during the High Renaissance in the 16th century, is one of the most iconic and enigmatic portraits in art history, displayed at the Louvre Museum."
-        fr:
+          description: "The title of the artwork."
+          example: "Mona Lisa"
+        author:
           type: string
-          description: "Description of the artwork in French."
-          example: "La Joconde, peinte par Léonard de Vinci pendant la Haute Renaissance au XVIe siècle, est l’un des portraits les plus emblématiques et les plus énigmatiques de l’histoire de l’art, exposé au musée du Louvre."
+          description: "The author of the artwork."
+          example: "Leonardo da Vinci"
+        location:
+          type: string
+          description: "The current location of the artwork."
+          example: "Louvre Museum"
+        style:
+          type: string
+          description: "The artistic style of the artwork."
+          example: "High Renaissance"
+        period:
+          type: string
+          description: "The artistic period to which the artwork belongs."
+          example: "16th century"
+        popularity:
+          type: integer
+          description: "The popularity of the artwork on a scale of 1 to 10."
+          example: 10
+        photo:
+          type: string
+          description: "URL of the artwork's photo."
+          example: "https://example.com/monalisa.jpg"
+        description:
+          type: object
+          properties:
+            en:
+              type: string
+              description: "Description of the artwork in English."
+              example: "The Mona Lisa, painted by Leonardo da Vinci during the High Renaissance in the 16th century, is one of the most iconic and enigmatic portraits in art history, displayed at the Louvre Museum."
+            fr:
+              type: string
+              description: "Description of the artwork in French."
+              example: "La Joconde, peinte par Léonard de Vinci pendant la Haute Renaissance au XVIe siècle, est l’un des portraits les plus emblématiques et les plus énigmatiques de l’histoire de l’art, exposé au musée du Louvre."
 
 
         
