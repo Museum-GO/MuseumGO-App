@@ -1,0 +1,12 @@
+---
+_id: 1
+title: "Mona Lisa"
+author: "Leonardo da Vinci"
+location: "Louvre Museum"
+style: "High Renaissance"
+period: "16th century"
+popularity: 10
+photo: NULL
+description : 
+	en: "The Mona Lisa, painted by Leonardo da Vinci during the High Renaissance in the 16th century, is one of the most iconic and enigmatic portraits in art history, displayed at the Louvre Museum."
+	fr: "La Joconde, peinte par Léonard de Vinci pendant la Haute Renaissance au XVIe siècle, est l’un des portraits les plus emblématiques et les plus énigmatiques de l’histoire de l’art, exposé au musée du Louvre."
