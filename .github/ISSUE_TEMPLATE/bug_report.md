@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve DebiAI
+about: Create a report to help us improve MuseumGo
 title: "[BUG]"
 labels: bug
 assignees: ''

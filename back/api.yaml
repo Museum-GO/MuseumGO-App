@@ -1,0 +1,48 @@
+openapi: 3.0.3
+info:
+  title: tmp
+  description: Temporary API to test OpenAPI
+  version: 0.0.0
+paths:
+  /works:
+    get:
+      operationId: controller.works.get_works
+      parameters:
+        - name: tags
+          in: query
+          description: tags to filter by
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - museum
+                - work
+      responses:
+        "200":
+          description: List of works
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Work"
+
+components:
+  schemas:
+    Work:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The work ID
+        position:
+          type: object
+          properties:
+            latitude:
+              type: number
+              format: double
+            longitude:
+              type: number
+              format: double

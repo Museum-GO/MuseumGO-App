@@ -1,0 +1,28 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "arango",
+    "ARANGODB",
+    "autouse",
+    "connexion",
+    "elmt",
+    "htmlcov",
+    "museumgo",
+    "openapi",
+    "pycache",
+    "pytest",
+    "termcolor"
+  ],
+  "flagWords": [],
+  "ignorePaths": [
+    "*.svg",
+    "*.json",
+    "*.png",
+    "htmlcov",
+    "config.ini",
+    "__pycache__",
+    "workart.yaml",
+    "test.yaml"
+  ]
+}

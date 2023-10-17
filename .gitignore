@@ -1,0 +1,12 @@
+deployment/
+.vscode/
+
+# Back
+.coverage
+__pycache__/
+.pytest_cache
+
+# Front
+frontend/node_modules/
+
+dist/
