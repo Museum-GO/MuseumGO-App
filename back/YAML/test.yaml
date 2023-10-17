@@ -1,12 +1,61 @@
----
-_id: 1
-title: "Mona Lisa"
-author: "Leonardo da Vinci"
-location: "Louvre Museum"
-style: "High Renaissance"
-period: "16th century"
-popularity: 10
-photo: NULL
-description : 
-	en: "The Mona Lisa, painted by Leonardo da Vinci during the High Renaissance in the 16th century, is one of the most iconic and enigmatic portraits in art history, displayed at the Louvre Museum."
-	fr: "La Joconde, peinte par Léonard de Vinci pendant la Haute Renaissance au XVIe siècle, est l’un des portraits les plus emblématiques et les plus énigmatiques de l’histoire de l’art, exposé au musée du Louvre."
+openapi : 3.0.0
+info :
+  title : 'API MuseumGO'
+  version : '0.1'
+servers:
+  -
+    url: 'http://tomansion.fr/MuseumGo-dev'
+    description: 'API MuseumGO'
+
+components:
+  WorkArt:
+  type: object
+  required:
+    - title
+  properties:
+    _id:
+      type: integer
+      description: "The unique identifier of the artwork."
+      example: 1
+    title:
+      type: string
+      description: "The title of the artwork."
+      example: "Mona Lisa"
+    author:
+      type: string
+      description: "The author of the artwork."
+      example: "Leonardo da Vinci"
+    location:
+      type: string
+      description: "The current location of the artwork."
+      example: "Louvre Museum"
+    style:
+      type: string
+      description: "The artistic style of the artwork."
+      example: "High Renaissance"
+    period:
+      type: string
+      description: "The artistic period to which the artwork belongs."
+      example: "16th century"
+    popularity:
+      type: integer
+      description: "The popularity of the artwork on a scale of 1 to 10."
+      example: 10
+    photo:
+      type: string
+      description: "URL of the artwork's photo."
+      example: "https://example.com/monalisa.jpg"
+    description:
+      type: object
+      properties:
+        en:
+          type: string
+          description: "Description of the artwork in English."
+          example: "The Mona Lisa, painted by Leonardo da Vinci during the High Renaissance in the 16th century, is one of the most iconic and enigmatic portraits in art history, displayed at the Louvre Museum."
+        fr:
+          type: string
+          description: "Description of the artwork in French."
+          example: "La Joconde, peinte par Léonard de Vinci pendant la Haute Renaissance au XVIe siècle, est l’un des portraits les plus emblématiques et les plus énigmatiques de l’histoire de l’art, exposé au musée du Louvre."
+
+
+        
