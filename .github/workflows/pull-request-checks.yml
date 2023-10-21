@@ -9,6 +9,7 @@ on:
 
 permissions:
   pull-requests: write
+  contents: read
 
 jobs:
   black-format-check: # Check that the back codebase is formatted with black
