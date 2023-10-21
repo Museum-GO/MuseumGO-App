@@ -153,7 +153,4 @@ jobs:
       - name: Add coverage to PR comment
         uses: mshick/add-pr-comment@v2
         with:
-          message: | # Cat the code-coverage-results.md file
-            ## Code Coverage
-
-            $(cat code-coverage-results.md)
+          message-path: code-coverage-results.md
