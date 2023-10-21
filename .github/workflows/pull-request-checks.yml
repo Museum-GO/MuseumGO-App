@@ -153,9 +153,6 @@ jobs:
       - name: Add coverage to PR comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          message: |
-            ## Code Coverage Report
-            ${{ steps.CodeCoverageSummary.outputs.summary }}
           header: "Code Coverage"
           recreate: true
           path: coverage-summary.md
