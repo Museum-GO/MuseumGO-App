@@ -12,7 +12,10 @@
     "openapi",
     "pycache",
     "pytest",
-    "termcolor"
+    "termcolor",
+    "Avenir",
+    "intlify",
+    "vuex"
   ],
   "flagWords": [],
   "ignorePaths": [
