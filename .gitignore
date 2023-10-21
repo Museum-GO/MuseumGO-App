@@ -3,6 +3,7 @@ deployment/
 TODO
 
 # Back
+config/config.ini
 .coverage
 __pycache__/
 .pytest_cache

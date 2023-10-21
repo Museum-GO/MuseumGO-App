@@ -105,6 +105,18 @@ def init_config():
 
     print("\nInitializing config...")
 
+    # Check if the config file exists
+    if not os.path.exists(config_path):
+        print()
+
+        raise FileNotFoundError(
+            "A "
+            + colored(config_path, ERROR_COLOR)
+            + " file is required, copy the "
+            + config_path
+            + ".example file and fill it"
+        )
+
     # Read the config file
     config_parser.read(config_path)
 
