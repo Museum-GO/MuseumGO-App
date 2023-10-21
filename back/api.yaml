@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: tmp
-  description: Temporary API to test OpenAPI
-  version: 0.1.0
+  title : 'API MuseumGO'
+  version : 0.1.0
+  description : 'A swagger Museum as you never be able to be that swag'
 paths:
   /works:
     get:
