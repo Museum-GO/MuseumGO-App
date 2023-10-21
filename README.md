@@ -70,6 +70,14 @@ npm run serve
 
 The frontend is now available by connecting to the backend URL at [http://localhost:3000](http://localhost:3000)
 
+#### Good practices
+
+Check that your code is compliant with our linter Prettier:
+
+```bash
+npm run prettier
+```
+
 ### Recommended development environment
 
 - VSCode with extensions:
