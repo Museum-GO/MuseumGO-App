@@ -58,7 +58,7 @@ def get_config_value(section, key, config_parser):
 
     # Get the value from the environment variables
     if ENV_VAR in os.environ:
-        value = str.lower(os.environ[ENV_VAR])
+        value = os.environ[ENV_VAR]
 
     if value is None:
         print(
