@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: 16
       - name: Install dependencies and check prettier format
-        run: cd front && npm install && npm run prettier-check
+        run: cd front && npm install && npm run prettier:check
 
   cspell-check: # Check that the project does not contain spelling errors
     name: CSpell check
