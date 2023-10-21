@@ -78,6 +78,12 @@ Check that your code is compliant with our linter Prettier:
 npm run prettier
 ```
 
+Check that your code has no spelling mistakes:
+
+```bash
+npm run spellcheck
+```
+
 ### Recommended development environment
 
 - VSCode with extensions:
