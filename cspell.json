@@ -23,10 +23,15 @@
     "*.svg",
     "*.json",
     "*.png",
+    "*.xml",
     "htmlcov",
     "config.ini",
     "__pycache__",
     "workart.yaml",
-    "test.yaml"
+    "test.yaml",
+    ".github/workflows",
+    "node_modules",
+    "TODO",
+    "back/requirements.txt"
   ]
 }

@@ -9,3 +9,4 @@ __pycache__/
 
 # Front
 front/node_modules/
+back/coverage.xml
