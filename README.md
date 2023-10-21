@@ -1,5 +1,8 @@
 # MuseumGo app
 
+![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 This is a simple app to find museums near you.
 
 ## Development guide
@@ -45,6 +48,14 @@ python app.py
 Check the SwaggerUI at [http://localhost:3000/api/ui](http://localhost:3000/api/ui)
 
 [Testing guide](./back/tests/README.md)
+
+#### Good practices
+
+Check that your code is compliant with our linter Black:
+
+```bash
+black .
+```
 
 ### Frontend
 
