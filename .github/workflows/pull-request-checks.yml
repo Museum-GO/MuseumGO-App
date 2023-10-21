@@ -112,6 +112,13 @@ jobs:
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
 
+    env:
+      MUSEUMGO_ARANGODB_HOST: ${{ secrets.ARANGODB_TEST_HOST }}
+      MUSEUMGO_ARANGODB_PORT: ${{ secrets.ARANGODB_TEST_PORT }}
+      MUSEUMGO_ARANGODB_DATABASE: ${{ secrets.ARANGODB_TEST_DATABASE }}
+      MUSEUMGO_ARANGODB_USER: ${{ secrets.ARANGODB_TEST_USER }}
+      MUSEUMGO_ARANGODB_PASSWORD: ${{ secrets.ARANGODB_TEST_PASSWORD }}
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
