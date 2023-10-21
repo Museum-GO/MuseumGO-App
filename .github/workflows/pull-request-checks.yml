@@ -60,12 +60,12 @@ jobs:
           cd front
           FRONTEND_VERSION=$(cat package.json | grep -m1 version | cut -d '"' -f 4)
           cd ../back
-          BACKEND_VERSION=$(cat swagger.yaml | grep -m1 version | cut -d ':' -f 2 | sed 's/ //g')
+          BACKEND_VERSION=$(cat api.yaml | grep -m1 version | cut -d ':' -f 2 | sed 's/ //g')
           if [ "$FRONTEND_VERSION" != "$BACKEND_VERSION" ]; then
-            echo "Version mismatch: front/package.json version '$FRONTEND_VERSION' != back/swagger.yaml version '$BACKEND_VERSION'."
+            echo "Version mismatch: front/package.json version '$FRONTEND_VERSION' != back/api.yaml version '$BACKEND_VERSION'."
             exit 1
           fi
-          echo "Version match: front/package.json version '$FRONTEND_VERSION' == back/swagger.yaml version '$BACKEND_VERSION'."
+          echo "Version match: front/package.json version '$FRONTEND_VERSION' == back/api.yaml version '$BACKEND_VERSION'."
           echo "BRANCH_VERSION=$FRONTEND_VERSION" >> $GITHUB_OUTPUT
 
       - uses: actions/checkout@v3
