@@ -135,7 +135,7 @@ jobs:
       - name: Generate coverage Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: "coverage.xml"
+          filename: "back/coverage.xml"
           badge: true
           format: "markdown"
           output: "both"
