@@ -1,0 +1,6 @@
+{
+  "message": "hello i18n !!",
+  "hello": "Hello i18n in SFC!",
+  "variableCorrect": "The variable is correct",
+  "variableIncorrect": "The variable is incorrect"
+}

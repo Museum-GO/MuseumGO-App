@@ -22,3 +22,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Recommended extensions
+
+- cspell: Spell checker
+- .18n Ally: i18n support
