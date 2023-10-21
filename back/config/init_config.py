@@ -73,12 +73,17 @@ def get_config_value(section, key, config_parser):
 
         raise ValueError(
             "Missing "
-            + section
-            + " / "
-            + key
-            + " in config/config.ini or in "
-            + ENV_VAR
-            + " env var"
+            + colored(section + " / " + key, ERROR_COLOR)
+            + " in "
+            + config_path
+            + " or in "
+            + colored(ENV_VAR, ERROR_COLOR)
+            + " env var.\n"
+            + "Copy the "
+            + colored(config_path, DEBUG_SECONDARY_COLOR)
+            + ".example file to "
+            + colored(config_path, DEBUG_SECONDARY_COLOR)
+            + " and fill it."
         )
 
     return value
@@ -104,18 +109,6 @@ def init_config():
     global config
 
     print("\nInitializing config...")
-
-    # Check if the config file exists
-    if not os.path.exists(config_path):
-        print()
-
-        raise FileNotFoundError(
-            "A "
-            + colored(config_path, ERROR_COLOR)
-            + " file is required, copy the "
-            + config_path
-            + ".example file and fill it"
-        )
 
     # Read the config file
     config_parser.read(config_path)
