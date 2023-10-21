@@ -7,6 +7,9 @@ on:
       - synchronize
       - reopened
 
+permissions:
+  pull-requests: write
+
 jobs:
   black-format-check: # Check that the back codebase is formatted with black
     name: Black format check
@@ -144,9 +147,14 @@ jobs:
         run: |
           ls -la
           ls -la back
+      - name: Write to Job Summary
+        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
       - name: Add coverage to PR comment
         uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
         with:
+          message: |
+            ## Code Coverage Report
+            ${{ steps.CodeCoverageSummary.outputs.summary }}
+          header: "Code Coverage"
           recreate: true
-          path: back/coverage-summary.md
+          path: coverage-summary.md
