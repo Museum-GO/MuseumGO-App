@@ -1,6 +1,6 @@
 <template>
   <div id="helloWorld">
-     <router-link to="/about">About</router-link>
+    <router-link to="/about">About</router-link>
     <p>{{ $t("HW.hello") }}</p>
     <p>{{ variable }}</p>
 
@@ -26,10 +26,9 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
 import api from "@/services/api";
 
-export default defineComponent({
+export default {
   name: "HelloWorld",
   data() {
     return {
@@ -71,7 +70,7 @@ export default defineComponent({
 
   // Their is many other options you can use in your component.
   // Learn more on hooks: https://vuejs.org/guide/essentials/lifecycle.html
-});
+};
 </script>
 
 <style lang="scss" scoped>
