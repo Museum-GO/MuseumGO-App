@@ -22,14 +22,16 @@ def setup():
     # Connect to ArangoDB
     print("\nConnecting to ArangoDB...")
     print(" - Initializing client")
+    print(f"   - Host: {colored(HOST, DEBUG_COLOR)}")
+    print(f"   - Port: {colored(PORT, DEBUG_COLOR)}")
+    print(f"   - Database: {colored(DATABASE, DEBUG_COLOR)}")
+    print(f"   - User: {colored(USER, DEBUG_COLOR)}")
 
     # Initialize the ArangoDB client.
     client = ArangoClient(hosts=f"http://{HOST}:{PORT}")
 
     # Connect to the MuseumGo database
     db = client.db(DATABASE, username=USER, password=PASSWORD)
-
-    print(" - Connection established")
 
     try:
         # Delete the collections if they exist
@@ -50,6 +52,8 @@ def setup():
         print(colored(" - Error while creating collections", ERROR_COLOR))
         print(colored(e, ERROR_COLOR))
         exit(1)
+
+    print(" - Connection established")
 
 
 def dbMustBeSetup(func):
