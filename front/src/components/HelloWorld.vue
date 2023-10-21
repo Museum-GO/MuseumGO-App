@@ -1,18 +1,18 @@
 <template>
   <div id="testCompo">
-    <p>{{ $t("hello") }}</p>
+    <p>{{ $t("HW.hello") }}</p>
     <p>{{ variable }}</p>
 
     <!-- Variable change form -->
     <div id="form">
       <input type="number" v-model="newVariable" />
-      <button @click="setVariable">{{ $t("setVariable") }}</button>
+      <button @click="setVariable">{{ $t("HW.setVariable") }}</button>
     </div>
 
     <!-- Variable change message -->
     <div id="message">
-      <p v-if="isVariableCorrect">{{ $t("variableCorrect") }}</p>
-      <p v-else class="error">{{ $t("variableIncorrect") }}</p>
+      <p v-if="isVariableCorrect">{{ $t("HW.variableCorrect") }}</p>
+      <p v-else class="error">{{ $t("HW.variableIncorrect") }}</p>
     </div>
   </div>
 </template>
@@ -22,18 +22,6 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "HelloWorld",
-  i18n: {
-    // Local translations
-    messages: {
-      en: {
-        hello: "Hello from component!",
-        setVariable: "Set Variable from component!",
-        variableCorrect: "The variable is correct from component!",
-        variableIncorrect: "The variable is incorrect from component!",
-      },
-      // ... other languages can be defined here
-    },
-  },
   data() {
     return {
       variable: 10,
@@ -42,9 +30,11 @@ export default defineComponent({
   },
   created() {
     // Called when the component is created.
+    // Good place to fetch data from API.
   },
   mounted() {
     // Called when the component has been mounted in the DOM.
+    // Good place to use jQuery or other DOM manipulations (maps, etc.)
   },
   methods: {
     // Any methods you want to use in your component.
