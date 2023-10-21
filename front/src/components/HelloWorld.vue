@@ -3,8 +3,13 @@
     <p>{{ $t("hello") }}</p>
     <p>{{ variable }}</p>
 
-    <input type="number" v-model="newVariable" />
-    <button @click="setVariable">Change</button>
+    <!-- Variable change form -->
+    <div id="form">
+      <input type="number" v-model="newVariable" />
+      <button @click="setVariable">{{ $t("setVariable") }}</button>
+    </div>
+
+    <!-- Variable change message -->
     <div id="message">
       <p v-if="isVariableCorrect">{{ $t("variableCorrect") }}</p>
       <p v-else class="error">{{ $t("variableIncorrect") }}</p>
@@ -17,6 +22,18 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "HelloWorld",
+  i18n: {
+    // Local translations
+    messages: {
+      en: {
+        hello: "Hello from component!",
+        setVariable: "Set Variable from component!",
+        variableCorrect: "The variable is correct from component!",
+        variableIncorrect: "The variable is incorrect from component!",
+      },
+      // ... other languages can be defined here
+    },
+  },
   data() {
     return {
       variable: 10,
@@ -48,31 +65,23 @@ export default defineComponent({
     },
   },
 
-  // The following hooks won't be very useful in most cases.
-  beforeUpdate() {
-    // Called when the component is about to update.
-    console.log("beforeUpdate");
-  },
-
-  updated() {
-    // Called after a data change causes the virtual DOM to be re-rendered and patched.
-    console.log("updated");
-  },
-
-  beforeUnmount() {
-    // Called when the component is about to be unmounted.
-  },
-
-  unmounted() {
-    // Called when the component has been removed from the DOM.
-  },
+  // Their is many other options you can use in your component.
+  // Learn more on hooks: https://vuejs.org/guide/essentials/lifecycle.html
 });
 </script>
 
 <style lang="scss" scoped>
 // Scoped styles
 #testCompo {
-  color: red;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   #message {
     color: green;
