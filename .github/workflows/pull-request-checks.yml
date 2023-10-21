@@ -147,8 +147,8 @@ jobs:
           output: "both"
           threshold: 80
           fail: true
-
       - name: Add coverage to PR comment
         uses: mshick/add-pr-comment@v2
         with:
           message-path: code-coverage-results.md
+          refresh-message-position: true
