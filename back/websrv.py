@@ -70,7 +70,7 @@ if __name__ == "__main__":
     # Run MuseumGo init
     print("================= MuseumGo " + get_app_version() + " ====================")
     init()
-    print("======================== RUN =======================")
+    print("\n======================== RUN =======================")
     print(
         "   MuseumGo is available at "
         + colored("http://localhost:" + str(PORT), DEBUG_COLOR)

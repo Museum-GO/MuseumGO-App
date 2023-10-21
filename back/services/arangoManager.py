@@ -41,6 +41,15 @@ def setup():
         #     )
         #     db.delete_collection(WORKS_COLLECTION_NAME)
 
+        # Insert few documents into the collection for testing purposes
+        add_work("Mona Lisa", [2.335, 48.861])
+        add_work("The Starry Night", [4.833, 52.367])
+        add_work("The Last Supper", [9.19, 45.464])
+        add_work("The Creation of Adam", [12.483, 41.898])
+        add_work("The Persistence of Memory", [-73.962, 40.781])
+        add_work("The Scream", [10.738, 59.913])
+        add_work("Guernica", [-2.988, 43.319])
+
         # Create the collections if they don't exist
         if not db.has_collection(WORKS_COLLECTION_NAME):
             print(

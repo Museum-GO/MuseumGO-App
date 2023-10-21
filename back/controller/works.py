@@ -4,7 +4,7 @@
 from services.arangoManager import get_works as get_works_from_db
 
 #############################################################################
-# Algo providers Management
+# Works Management
 #############################################################################
 
 

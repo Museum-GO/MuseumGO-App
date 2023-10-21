@@ -1,5 +1,6 @@
 <template>
-  <div id="testCompo">
+  <div id="helloWorld">
+     <router-link to="/about">About</router-link>
     <p>{{ $t("HW.hello") }}</p>
     <p>{{ variable }}</p>
 
@@ -14,11 +15,19 @@
       <p v-if="isVariableCorrect">{{ $t("HW.variableCorrect") }}</p>
       <p v-else class="error">{{ $t("HW.variableIncorrect") }}</p>
     </div>
+
+    <div id="works">
+      <div class="work" v-for="work in works" :key="work._id">
+        <h3>{{ work.name }}</h3>
+        <p>{{ work.location.coordinates }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
+import api from "@/services/api";
 
 export default defineComponent({
   name: "HelloWorld",
@@ -26,11 +35,16 @@ export default defineComponent({
     return {
       variable: 10,
       newVariable: 20,
+      works: [],
     };
   },
   created() {
     // Called when the component is created.
     // Good place to fetch data from API.
+
+    api.getWorks().then((works) => {
+      this.works = works;
+    });
   },
   mounted() {
     // Called when the component has been mounted in the DOM.
@@ -62,7 +76,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 // Scoped styles
-#testCompo {
+#helloWorld {
   padding: 10px;
   margin: 10px;
   border: 1px solid black;
@@ -77,6 +91,26 @@ export default defineComponent({
     color: green;
     .error {
       color: red;
+    }
+  }
+
+  #works {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    max-width: 100%;
+    overflow: auto;
+    padding-bottom: 10px;
+
+    .work {
+      width: 200px;
+      min-width: 200px;
+      height: 150px;
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid black;
+      border-radius: 5px;
     }
   }
 }
