@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: tmp
   description: Temporary API to test OpenAPI
-  version: 0.0.0
+  version: 0.1.0
 paths:
   /works:
     get:
