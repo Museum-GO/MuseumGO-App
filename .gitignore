@@ -1,5 +1,6 @@
 deployment/
 .vscode/
+TODO
 
 # Back
 .coverage
@@ -7,6 +8,4 @@ __pycache__/
 .pytest_cache
 
 # Front
-frontend/node_modules/
-
-dist/
+front/node_modules/
