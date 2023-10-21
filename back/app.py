@@ -75,4 +75,9 @@ if __name__ == "__main__":
         "   MuseumGo is available at "
         + colored("http://localhost:" + str(PORT), DEBUG_COLOR)
     )
+    print(
+        "   Swagger UI is available at "
+        + colored("http://localhost:" + str(PORT) + "/ui", DEBUG_COLOR)
+    )
+    print("====================================================\n")
     app.run(port=PORT, debug=True)

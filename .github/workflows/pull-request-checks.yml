@@ -131,4 +131,4 @@ jobs:
       - name: Test with pytest
         run: |
           cd back
-          python websrv.py & sleep 5 && pytest tests/
+          python app.py & sleep 5 && pytest tests/
