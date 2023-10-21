@@ -7,10 +7,6 @@ on:
       - synchronize
       - reopened
 
-permissions:
-  pull-requests: write
-  contents: read
-
 jobs:
   black-format-check: # Check that the back codebase is formatted with black
     name: Black format check
@@ -113,6 +109,10 @@ jobs:
       [black-format-check, prettier-check, cspell-check, version-upgrade-check]
     runs-on: ubuntu-latest
 
+    permissions:
+      pull-requests: write
+      contents: read
+
     env:
       MUSEUMGO_ARANGODB_HOST: ${{ secrets.ARANGODB_TEST_HOST }}
       MUSEUMGO_ARANGODB_PORT: ${{ secrets.ARANGODB_TEST_PORT }}
@@ -151,8 +151,9 @@ jobs:
       - name: Write to Job Summary
         run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
       - name: Add coverage to PR comment
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: mshick/add-pr-comment@v2
         with:
-          header: "Code Coverage"
-          recreate: true
-          path: coverage-summary.md
+          message: | # Cat the code-coverage-results.md file
+            ## Code Coverage
+
+            $(cat code-coverage-results.md)
