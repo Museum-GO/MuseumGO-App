@@ -13,6 +13,7 @@
     },
     "artists": ["Sandro Botticelli"],
     "style": {
+        "id": 1,
         "fr": ["Peinture", "Mythologie", "Allégorie", "Humanisme"],
         "en": ["Painting", "Mythology", "Allegory", "Humanism"]
     },
