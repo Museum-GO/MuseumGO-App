@@ -9,10 +9,10 @@
 import AppHeader from "@/components/AppHeader.vue";
 
 export default {
+  name: "MainLayout",
   components: {
     AppHeader,
   },
-  name: "MainLayout",
 };
 </script>
 

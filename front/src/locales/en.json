@@ -1,5 +1,5 @@
 {
-  "HW": {
+  "HelloWorld": {
     "message": "hello i18n !!",
     "hello": "Hello from component!",
     "setVariable": "Set Variable",

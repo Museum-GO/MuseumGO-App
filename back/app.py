@@ -67,9 +67,11 @@ def send_supporting_elmt(path):
 
 
 if __name__ == "__main__":
-    # Run MuseumGo init
     print("================= MuseumGo " + get_app_version() + " ====================")
+
+    # Run MuseumGo init
     init()
+
     print("\n======================== RUN =======================")
     print(
         "   MuseumGo is available at "

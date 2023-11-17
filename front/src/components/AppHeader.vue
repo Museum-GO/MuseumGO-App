@@ -9,7 +9,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "AppHeader",
+};
 </script>
 
 <style lang="scss" scoped>

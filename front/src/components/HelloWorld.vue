@@ -1,19 +1,18 @@
 <template>
   <div id="helloWorld">
-    <router-link to="/about">About</router-link>
-    <p>{{ $t("HW.hello") }}</p>
+    <p>{{ $t("HelloWorld.hello") }}</p>
     <p>{{ variable }}</p>
 
     <!-- Variable change form -->
     <div id="form">
       <input type="number" v-model="newVariable" />
-      <button @click="setVariable">{{ $t("HW.setVariable") }}</button>
+      <button @click="setVariable">{{ $t("HelloWorld.setVariable") }}</button>
     </div>
 
     <!-- Variable change message -->
     <div id="message">
-      <p v-if="isVariableCorrect">{{ $t("HW.variableCorrect") }}</p>
-      <p v-else class="error">{{ $t("HW.variableIncorrect") }}</p>
+      <p v-if="isVariableCorrect">{{ $t("HelloWorld.variableCorrect") }}</p>
+      <p v-else class="error">{{ $t("HelloWorld.variableIncorrect") }}</p>
     </div>
 
     <div id="works">

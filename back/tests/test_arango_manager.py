@@ -59,6 +59,7 @@ def check_that_dict_is_a_work(work):
 
 
 def test_get_works():
+    # Test that we get the correct number of works and that they are correct
     # Get all the works
     works = get_works()
     assert type(works) is list

@@ -1,24 +1,24 @@
 openapi: 3.0.3
 info:
-  title : 'API MuseumGO'
-  version : 0.1.0
-  description : 'A swagger Museum as you never be able to be that swag'
+  title: "API MuseumGO"
+  version: 0.1.0
+  description: "A swagger Museum as you never be able to be that swag"
 paths:
   /works:
     get:
       operationId: controller.works.get_works
+      description: Get all works
       parameters:
-        - name: tags
+        - name: searchField
           in: query
-          description: tags to filter by
+          description: The text to search, if empty return all works,
+            Filter the things you want to see with the name, artist, tags and description
           required: false
           schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - museum
-                - work
+            type: string
+            minLength: 1
+            example: "Mona Lisa"
+
       responses:
         "200":
           description: List of works
@@ -33,6 +33,7 @@ components:
   schemas:
     Work:
       type: object
+      description: A work of art
       properties:
         name:
           type: string
@@ -46,3 +47,9 @@ components:
             longitude:
               type: number
               format: double
+          required:
+            - latitude
+            - longitude
+      required:
+        - name
+        - position
