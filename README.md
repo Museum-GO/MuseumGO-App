@@ -16,7 +16,7 @@ cd MuseumGO-App
 
 ### ArangoDB database
 
-MuseumGo uses ArangoDB as a database, you can install it locally or use a docker image.
+MuseumGo uses ArangoDB v3.11.5 as a database, you can install it locally or use a docker image.
 
 ### Backend
 
@@ -24,8 +24,8 @@ The backend is made with Python and requests / flask, it is based on a OpenAPI s
 
 #### Requirements
 
-- Python 3.8
-- pip
+- Python v3.8
+- pip v23.1.2
 - A running ArangoDB instance
 
 #### How to setup
@@ -64,7 +64,7 @@ The frontend is made with VueJS.
 #### Requirements
 
 - NodeJS v19.0.0c
-- npm
+- npm v8.19.2
 
 #### How to setup
 
