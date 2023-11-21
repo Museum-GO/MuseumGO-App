@@ -1,0 +1,35 @@
+:root {
+  --fontColor: #2c3e50;
+  --fontColorLight: #66798d;
+
+  /* MuseumGo colors */
+  --primary: #009ddf; // Important buttons
+  --primaryLight: #c2edff;
+  --primaryDark: #046c99;
+
+  --secondary: #40c6ca; // Columns
+  --secondaryDark: #3eb2b6;
+}
+
+html,
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  color: var(--fontColor);
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 5px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    background-color: var(--primaryDark);
+  }
+}
