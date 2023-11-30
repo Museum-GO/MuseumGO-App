@@ -2,9 +2,16 @@
   <div id="map-view">
     <div id="map-container">
       <l-map ref="map" v-model:zoom="zoom" :center="[47.41322, -1.219482]">
+        <!-- url="https://api.maptiler.com/maps/toner-v2/?key=zvSWykBhfXO9HxJ5ZX7j#{z}/{x}/{y}.png" -->
+        <!-- url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" -->
+        <!-- url="https://api.maptiler.com/maps/toner-v2/{z}/{x}/{y}.png?key=zvSWykBhfXO9HxJ5ZX7j" -->
         <l-tile-layer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=zvSWykBhfXO9HxJ5ZX7j"
         />
+
+        <div style="position: absolute">
+          {{ x }}
+        </div>
 
         <l-marker :lat-lng="[47.61322, -0.519482]">
           <l-icon :icon-size="[21, 21]">★</l-icon>
