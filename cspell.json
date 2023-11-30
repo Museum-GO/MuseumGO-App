@@ -16,7 +16,8 @@
     "pytest",
     "termcolor",
     "Vetur",
-    "vuex"
+    "vuex",
+    "werkzeug"
   ],
   "flagWords": [],
   "ignorePaths": [

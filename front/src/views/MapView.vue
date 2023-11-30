@@ -5,13 +5,6 @@
         <l-tile-layer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <l-marker :lat-lng="[47.41322, -1.219482]">
-          <l-icon
-            :icon-url="iconUrl"
-            :icon-size="iconSize"
-            class-name="random-marker"
-          />
-        </l-marker>
 
         <l-marker :lat-lng="[47.61322, -0.519482]">
           <l-icon :icon-size="[21, 21]">★</l-icon>
@@ -29,16 +22,10 @@
             @click="console.log(feature)"
           >
             <l-icon
-              icon-url="https://t1.gstatic.com/licensed-image?q=tbn:ANd9GcQ-FvbbAq5IaJUhtwxXEwY0D-jiZju02ejnNHx_bQWL_27GF3srhwJgqusMAqKh3QqU"
-              :icon-size="[31, 31]"
-              :icon-anchor="[15, 15]"
+              icon-url="https://news.artnet.com/app/news-upload/2017/03/Mona_Lisa_by_Leonardo_da_Vinci_from_C2RMF_retouched-256x256.jpg"
               class-name="random-marker"
             >
             </l-icon>
-            <br>
-            <b>
-              {{ feature.properties.code }}
-            </b>
           </l-marker>
         </l-feature-group>
       </l-map>
@@ -66,7 +53,7 @@ export default {
   },
   data() {
     const randomFeatures = [];
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 10; i++) {
       randomFeatures.push({
         type: "Feature",
         geometry: {
@@ -107,14 +94,7 @@ export default {
       },
     };
   },
-  computed: {
-    iconUrl() {
-      return `https://placekitten.com/${this.iconWidth}/${this.iconHeight}`;
-    },
-    iconSize() {
-      return [this.iconWidth, this.iconHeight];
-    },
-  },
+  computed: {},
   methods: {
     changeIcon() {
       this.iconWidth += 1;
@@ -122,12 +102,6 @@ export default {
         this.iconWidth = Math.floor(this.iconHeight / 2);
       }
     },
-    // async loadGeoJson() {
-    //   const response = await fetch(
-    //     "https://rawgit.com/gregoiredavid/france-geojson/master/regions/pays-de-la-loire/communes-pays-de-la-loire.geojson"
-    //   );
-    //   this.geojson = await response.json();
-    // },
   },
 };
 </script>
@@ -138,24 +112,40 @@ export default {
     height: 94vh;
     width: 100vw;
   }
-  button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-  }
 }
 </style>
 
 <style lang="scss">
+:root {
+  --marker-size: 70px;
+  --marker-size-half: calc(var(--marker-size) / -2);
+  --marker-hover-size: 80px;
+  --marker-hover-size-half: calc(var(--marker-hover-size) / -2);
+}
+
 .random-marker {
+  width: var(--marker-size) !important;
+  height: var(--marker-size) !important;
+  margin-left: var(--marker-size-half) !important;
+  margin-top: var(--marker-size-half) !important;
+
   border-radius: 50%;
-  border: 3px solid black;
+  border: 3px solid white;
   background-color: white;
-  transition: transform 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
+
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+  // Prevent the image to warp when the icon size changes
+  object-fit: cover;
 }
 .random-marker:hover {
-  transform: scale(1.5);
-  opacity: 0.5;
+  // Scale up the image
+  width: var(--marker-hover-size) !important;
+  height: var(--marker-hover-size) !important;
+  margin-left: var(--marker-hover-size-half) !important;
+  margin-top: var(--marker-hover-size-half) !important;
+  border: 4px solid white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 </style>
