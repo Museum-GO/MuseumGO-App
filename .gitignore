@@ -1,0 +1,13 @@
+deployment/
+.vscode/
+TODO
+
+# Back
+back/config/config.ini
+.coverage
+__pycache__/
+.pytest_cache
+
+# Front
+front/node_modules/
+back/coverage.xml
