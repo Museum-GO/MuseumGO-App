@@ -31,10 +31,11 @@ def test_get_number_of_works():
 
 
 def test_add_works():
-    # Insert some works
-    add_work("test_work_1", [1, 1])
-    add_work("test_work_2", [2, 2])
-    add_work("test_work_3", [3, 3])
+    # Insert some works the documents needs at least a name field
+    add_work({"name":"1"})
+    add_work({"name":"2"})
+    add_work({"name":"3"})
+
 
     # Check that the number of works has increased
     assert get_number_of_works() == original_number_of_works + 3
