@@ -124,10 +124,13 @@ export default {
   methods: {
     onReady() {
       this.watchUserLocation();
+      this.watchCameraLocation();
     },
     getMap() {
       return this.$refs.map?.leafletObject;
     },
+
+    // User location
     watchUserLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(
@@ -138,10 +141,15 @@ export default {
               position.coords.longitude
             );
             this.focusOnUserLocation();
+
+            setInterval(() => {
+              // TODO fix point not updating without zooming
+              this.currentLocation.lat += (Math.random() - 0.5) * 0.001;
+              this.currentLocation.lng += (Math.random() - 0.5) * 0.001;
+            }, 1000);
           },
           () => {
             // Error callback
-            console.log("Error while getting user location");
           },
           {
             // Options
@@ -160,17 +168,21 @@ export default {
       if (!this.currentLocation || !this.getMap()) return;
       this.$refs.userLocation?.setLatLng(this.currentLocation);
     },
-
     focusOnUserLocation() {
       if (!this.currentLocation || !this.getMap()) return;
       this.getMap().panTo(this.currentLocation, this.zoom);
     },
 
-    changeIcon() {
-      this.iconWidth += 1;
-      if (this.iconWidth > this.iconHeight) {
-        this.iconWidth = Math.floor(this.iconHeight / 2);
-      }
+    // Camera location
+    watchCameraLocation() {
+      if (!this.getMap()) return;
+
+      this.getMap().on("move", (event) => {
+        const artworkSearchTarget = event.target.getCenter();
+        console.log("Camera position ", artworkSearchTarget);
+
+        // TODO, get the artworks around the camera position
+      });
     },
   },
   watch: {
