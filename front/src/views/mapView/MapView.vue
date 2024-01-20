@@ -65,9 +65,11 @@
 
             <!-- Museum -->
             <l-icon v-else icon-url="images/Museum.png">
-              <img src="images/Museum.png" alt="" class="marker museum" />
-              <div class="artworkNumber">
-                {{ museum.artworks.length }}
+              <div class="marker museum">
+                <img src="images/Museum.png" alt="" />
+                <div class="artworkNumber">
+                  {{ museum.artworks.length }}
+                </div>
               </div>
             </l-icon>
           </l-marker>
@@ -319,12 +321,25 @@ export default {
 
 .museum {
   border-color: black;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:hover {
+    .artworkNumber {
+      bottom: calc(var(--marker-hover-size) / 3);
+      right: calc(var(--marker-hover-size) / -3);
+    }
+  }
   // position: relative;
 }
 .artworkNumber {
   display: flex;
   justify-content: center;
-  width: calc(var(--marker-size) / 3);
+  min-width: calc(var(--marker-size) / 3);
   height: calc(var(--marker-size) / 3);
   position: absolute;
   bottom: calc(var(--marker-size) / 3);
@@ -336,12 +351,15 @@ export default {
   font-weight: bold;
   color: white;
   background-color: red;
+
+  transition: all 0.1s ease-in-out;
 }
 
 .userLocation {
   height: 60px !important;
   margin-left: -10px !important;
   margin-top: -60px !important;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
 }
 
 #focusOnUserLocation {
