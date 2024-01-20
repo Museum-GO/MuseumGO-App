@@ -1,26 +1,38 @@
 <template>
   <div id="map-view">
     <div id="map-container">
-      <l-map ref="map" v-model:zoom="zoom" :center="[47.41322, -1.219482]">
+      <l-map
+        ref="map"
+        v-model:zoom="zoom"
+        :center="defaultLocation"
+        :options="{ zoomControl: false }"
+        @ready="onReady"
+      >
+        <!-- Tiles -->
         <!-- url="https://api.maptiler.com/maps/toner-v2/?key=zvSWykBhfXO9HxJ5ZX7j#{z}/{x}/{y}.png" -->
-        <!-- url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" -->
         <!-- url="https://api.maptiler.com/maps/toner-v2/{z}/{x}/{y}.png?key=zvSWykBhfXO9HxJ5ZX7j" -->
+        <!-- url="https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=zvSWykBhfXO9HxJ5ZX7j" -->
+        <!-- url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" -->
         <l-tile-layer
-          url="https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=zvSWykBhfXO9HxJ5ZX7j"
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <div style="position: absolute">
-          {{ x }}
-        </div>
+        <!-- Zoom control -->
+        <l-control-zoom position="bottomright"></l-control-zoom>
 
-        <l-marker :lat-lng="[47.61322, -0.519482]">
-          <l-icon :icon-size="[21, 21]">★</l-icon>
+        <!-- User location: -->
+        <l-marker
+          v-if="currentLocation"
+          :lat-lng="currentLocation"
+          :radius="16"
+          :fillOpacity="1"
+          color="blue"
+          fillColor="blue"
+        >
+          <l-icon icon-url="ee" class-name="userLocation"></l-icon>
         </l-marker>
 
-        <l-marker :lat-lng="[47, -1]">
-          <l-icon class-name="">Hello, Map!</l-icon>
-        </l-marker>
-
+        <!-- Artworks: -->
         <l-feature-group>
           <l-marker
             v-for="(feature, i) in randomFeatures"
@@ -30,7 +42,7 @@
           >
             <l-icon
               icon-url="https://news.artnet.com/app/news-upload/2017/03/Mona_Lisa_by_Leonardo_da_Vinci_from_C2RMF_retouched-256x256.jpg"
-              class-name="random-marker"
+              class-name="randomMarker"
             >
             </l-icon>
           </l-marker>
@@ -48,6 +60,8 @@ import {
   LMarker,
   LTileLayer,
   LFeatureGroup,
+  // LCircleMarker,
+  LControlZoom,
 } from "@vue-leaflet/vue-leaflet";
 
 export default {
@@ -57,6 +71,8 @@ export default {
     LMarker,
     LIcon,
     LFeatureGroup,
+    // LCircleMarker,
+    LControlZoom,
   },
   data() {
     const randomFeatures = [];
@@ -76,22 +92,20 @@ export default {
         },
       });
     }
+
     return {
+      // Map properties
       zoom: 15,
       iconWidth: 100,
       iconHeight: 100,
+
+      // Map data
       randomFeatures: randomFeatures,
-      currentLocation: {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [47.41322, -1.219482],
-        },
-        properties: {
-          code: 44000,
-          name: "Nantes",
-        },
-      },
+
+      defaultLocation: [47.41322, -1.219482],
+      currentLocation: null,
+
+      // Map options
       geojson: null,
       geoStyler: (feature) => {
         return {
@@ -101,8 +115,55 @@ export default {
       },
     };
   },
+  mounted() {
+    // Watch user location
+  },
   computed: {},
   methods: {
+    onReady() {
+      this.watchUserLocation();
+    },
+    getMap() {
+      return this.$refs.map?.leafletObject;
+    },
+    watchUserLocation() {
+      if (navigator.geolocation) {
+        this.watchID = navigator.geolocation.watchPosition(
+          (position) => {
+            // Success callback, update the current location
+            this.currentLocation = [
+              position.coords.latitude,
+              position.coords.longitude,
+            ];
+            this.focusOnUserLocation();
+          },
+          () => {
+            // Error callback
+          },
+          {
+            // Options
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
+          }
+        );
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+        this.currentLocation = this.defaultLocation;
+      }
+    },
+    stopWatchingUserLocation() {
+      if (this.watchID) {
+        navigator.geolocation.clearWatch(this.watchID);
+        this.watchID = null;
+      }
+    },
+
+    focusOnUserLocation() {
+      if (!this.currentLocation || !this.getMap()) return;
+      this.getMap().panTo(this.currentLocation, this.zoom);
+    },
+
     changeIcon() {
       this.iconWidth += 1;
       if (this.iconWidth > this.iconHeight) {
@@ -130,7 +191,7 @@ export default {
   --marker-hover-size-half: calc(var(--marker-hover-size) / -2);
 }
 
-.random-marker {
+.randomMarker {
   width: var(--marker-size) !important;
   height: var(--marker-size) !important;
   margin-left: var(--marker-size-half) !important;
@@ -146,7 +207,7 @@ export default {
   // Prevent the image to warp when the icon size changes
   object-fit: cover;
 }
-.random-marker:hover {
+.randomMarker:hover {
   // Scale up the image
   width: var(--marker-hover-size) !important;
   height: var(--marker-hover-size) !important;
@@ -154,5 +215,17 @@ export default {
   margin-top: var(--marker-hover-size-half) !important;
   border: 4px solid white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.userLocation {
+  width: 21px !important;
+  height: 21px !important;
+  margin-left: -10px !important;
+  margin-top: -10px !important;
+  border-radius: 50%;
+  border: 3px solid white;
+  background-color: white;
+  transition: all 0.1s ease-in-out;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 </style>
