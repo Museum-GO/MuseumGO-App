@@ -19,7 +19,20 @@
 
         <!-- Controls -->
         <l-control-zoom position="bottomright"></l-control-zoom>
-        <button id="locateMe" @click="focusOnUserLocation">Locate me</button>
+        <button id="focusOnUserLocation" @click="focusOnUserLocation">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="black"
+            viewBox="0 0 26 26"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M 11 1 L 11 3.03125 C 6.7956596 3.4828018 3.4828018 6.7956596 3.03125 11 L 1 11 L 1 13 L 3.03125 13 C 3.4828018 17.20434 6.7956596 20.517198 11 20.96875 L 11 23 L 13 23 L 13 20.96875 C 17.20434 20.517198 20.517198 17.20434 20.96875 13 L 23 13 L 23 11 L 20.96875 11 C 20.517198 6.7956596 17.20434 3.4828018 13 3.03125 L 13 1 L 11 1 z M 12 5 C 15.9 5 19 8.1 19 12 C 19 15.9 15.9 19 12 19 C 8.1 19 5 15.9 5 12 C 5 8.1 8.1 5 12 5 z M 12 8 C 9.790861 8 8 9.790861 8 12 C 8 14.209139 9.790861 16 12 16 C 14.209139 16 16 14.209139 16 12 C 16 9.790861 14.209139 8 12 8 z"
+            />
+          </svg>
+        </button>
 
         <!-- User location: -->
         <l-marker
@@ -308,16 +321,6 @@ export default {
 
   &::after {
     content: "eee";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 20px solid black;
-    left: -20px;
-    top: 50%;
-    margin-top: -10px;
-    background: red;
   }
 }
 
@@ -325,5 +328,15 @@ export default {
   height: 60px !important;
   margin-left: -10px !important;
   margin-top: -60px !important;
+}
+
+#focusOnUserLocation {
+  position: absolute;
+  bottom: 100px;
+  right: 10px;
+  z-index: 1000;
+  background-color: white;
+  border: solid 1px black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 </style>
