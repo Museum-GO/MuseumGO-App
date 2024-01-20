@@ -1,13 +1,13 @@
 <template>
   <header id="header" lang="fr">
 
-    <div class="app-name"> <a href="/">MuseumGo</a> </div>
+    <div class="app-name"> <a href="/">{{$t("Header.app-name") }}</a> </div>
 
     <div class="search-bar">
-      <input type="text" placeholder="Recherche">
+      <input type="text" :placeholder='$t("Header.search-bar")'>
     </div>
 
-    <div class="language-link"> <a href="?fr">FR</a> | <a href="?eng">ENG</a> </div>
+    <div class="language-link"> <a href="?fr">{{$t("Header.fr") }}</a> | <a href="?eng">{{$t("Header.eng") }}</a> </div>
   </header>
 </template>
 

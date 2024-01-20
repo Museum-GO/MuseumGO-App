@@ -1,4 +1,11 @@
 {
+  "HelloWorld": {
+    "message": "hello i18n !!",
+    "hello": "Hello from component!",
+    "setVariable": "Set Variable",
+    "variableCorrect": "The variable is correct",
+    "variableIncorrect": "The variable is incorrect"
+  },
   "Header": {
     "app-name": "MuseeAller",
     "search-bar": "Recherche",
