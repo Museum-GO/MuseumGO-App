@@ -13,7 +13,7 @@ const routes = [
       {
         name: "Map",
         path: "/map",
-        component: () => import("../views/MapView.vue"),
+        component: () => import("../views/mapView/MapView.vue"),
       },
       {
         name: "about",

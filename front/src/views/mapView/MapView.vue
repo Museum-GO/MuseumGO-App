@@ -37,14 +37,24 @@
         <!-- Artworks: -->
         <l-feature-group>
           <l-marker
-            v-for="(feature, i) in randomFeatures"
+            v-for="(museum, i) in museums"
             :key="i"
-            :lat-lng="feature.geometry.coordinates"
-            @click="console.log(feature)"
+            :lat-lng="museum.geometry.coordinates"
+            @click="console.log(museum)"
           >
+            <!-- Artwork -->
             <l-icon
+              v-if="museum.artworks.length == 1"
               icon-url="https://news.artnet.com/app/news-upload/2017/03/Mona_Lisa_by_Leonardo_da_Vinci_from_C2RMF_retouched-256x256.jpg"
-              class-name="artwork"
+              class-name="marker artwork"
+            >
+            </l-icon>
+
+            <!-- Museum -->
+            <l-icon
+              v-else
+              icon-url="images/Museum.png"
+              class-name="marker museum"
             >
             </l-icon>
           </l-marker>
@@ -62,11 +72,12 @@ import {
   LMarker,
   LTileLayer,
   LFeatureGroup,
-  // LCircleMarker,
   LControlZoom,
 } from "@vue-leaflet/vue-leaflet";
 
 import { latLng } from "leaflet";
+
+import { constructMuseumsFromArtworks } from "./mapUtils";
 
 export default {
   components: {
@@ -75,42 +86,17 @@ export default {
     LMarker,
     LIcon,
     LFeatureGroup,
-    // LCircleMarker,
     LControlZoom,
   },
   data() {
-    const randomFeatures = [
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [48.860611, 2.337644],
-        },
-        properties: {},
-      },
-    ];
-
-    for (let i = 0; i < 10; i++) {
-      randomFeatures.push({
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            48.860611 + (Math.random() - 0.5) * 0.25,
-            2.337644 + (Math.random() - 0.5) * 0.25,
-          ],
-        },
-      });
-    }
-
     return {
       // Map properties
       zoom: 15,
       iconWidth: 100,
       iconHeight: 100,
 
-      // Map data
-      randomFeatures: randomFeatures,
+      // Map content data
+      museums: null,
 
       defaultLocation: [48.860611, 2.337644],
       currentLocation: null,
@@ -130,10 +116,73 @@ export default {
   },
   computed: {},
   methods: {
+    // Artworks and museums
+    loadMuseums(targetCoordinatesIn) {
+      // Load artworks from the server that are around the target coordinates
+      const targetCoordinates = targetCoordinatesIn || this.defaultLocation;
+
+      console.log("Loading artworks around ", targetCoordinates);
+
+      // TMP fake data, TODO remove
+      const artworks = [
+        {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [48.860611, 2.337644], // Louvre
+          },
+          properties: {},
+        },
+        {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [48.8526049229, 2.33466199468], // Eugene Delacroix
+          },
+          properties: {},
+        },
+      ];
+
+      for (let i = 0; i < 10; i++) {
+        artworks.push({
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [
+              targetCoordinates[0] + (Math.random() - 0.5) * 0.25,
+              targetCoordinates[1] + (Math.random() - 0.5) * 0.25,
+            ],
+          },
+        });
+      }
+
+      // Add few more artworks that have the same coordinates as some other artworks
+      const nbMuseums = 5;
+
+      for (let i = 0; i < nbMuseums; i++) {
+        const randomIndex = Math.floor(Math.random() * artworks.length);
+        const randomFeature = artworks[randomIndex];
+        artworks.push({
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: randomFeature.geometry.coordinates,
+          },
+        });
+      }
+
+      // Group artworks by museums
+      const museums = constructMuseumsFromArtworks(artworks);
+
+      this.museums = museums;
+    },
+
+    // Map
     onReady() {
       this.watchUserLocation();
       this.watchCameraLocation();
     },
+
     getMap() {
       return this.$refs.map?.leafletObject;
     },
@@ -145,11 +194,16 @@ export default {
         navigator.geolocation.watchPosition(
           (position) => {
             // Success callback, update the current location
+            console.log("User location: ", position.coords);
             this.currentLocation = latLng(
               position.coords.latitude,
               position.coords.longitude
             );
             this.focusOnUserLocation();
+            this.loadMuseums([
+              position.coords.latitude,
+              position.coords.longitude,
+            ]);
 
             // setInterval(() => {
             // this.currentLocation.lat += (Math.random() - 0.5) * 0.001;
@@ -185,11 +239,11 @@ export default {
     watchCameraLocation() {
       if (!this.getMap()) return;
 
-      this.getMap().on("move", (event) => {
-        const artworkSearchTarget = event.target.getCenter();
-        console.log("Camera position ", artworkSearchTarget);
-
+      this.getMap().on("move", () => {
+        // const artworkSearchTarget = event.target.getCenter();
+        // console.log("Camera position ", artworkSearchTarget);
         // TODO, get the artworks around the camera position
+        // this.loadMuseums([artworkSearchTarget.lat, artworkSearchTarget.lng]);
       });
     },
   },
@@ -213,20 +267,21 @@ export default {
 
 <style lang="scss">
 :root {
-  --artwork-marker-size: 50px;
-  --artwork-marker-size-half: calc(var(--artwork-marker-size) / -2);
-  --artwork-marker-hover-size: 60px;
-  --artwork-marker-hover-size-half: calc(var(--artwork-marker-hover-size) / -2);
+  --marker-size: 30px;
+  --marker-size-half: calc(var(--marker-size) / -2);
+  --marker-hover-size: 40px;
+  --marker-hover-size-half: calc(var(--marker-hover-size) / -2);
+  --marker-border-size: 2px;
 }
 
-.artwork {
-  width: var(--artwork-marker-size) !important;
-  height: var(--artwork-marker-size) !important;
-  margin-left: var(--artwork-marker-size-half) !important;
-  margin-top: var(--artwork-marker-size-half) !important;
+.marker {
+  width: var(--marker-size) !important;
+  height: var(--marker-size) !important;
+  margin-left: var(--marker-size-half) !important;
+  margin-top: var(--marker-size-half) !important;
 
   border-radius: 50%;
-  border: 3px solid white;
+  border: var(--marker-border-size) solid white;
   background-color: white;
   transition: all 0.1s ease-in-out;
 
@@ -234,26 +289,41 @@ export default {
 
   // Prevent the image to warp when the icon size changes
   object-fit: cover;
+
+  &:hover {
+    // Scale up the image
+    width: var(--marker-hover-size) !important;
+    height: var(--marker-hover-size) !important;
+    margin-left: var(--marker-hover-size-half) !important;
+    margin-top: var(--marker-hover-size-half) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
 }
-.artwork:hover {
-  // Scale up the image
-  width: var(--artwork-marker-hover-size) !important;
-  height: var(--artwork-marker-hover-size) !important;
-  margin-left: var(--artwork-marker-hover-size-half) !important;
-  margin-top: var(--artwork-marker-hover-size-half) !important;
-  border: 4px solid white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+.artwork {
+}
+
+.museum {
+  border-color: black;
+
+  &::after {
+    content: "eee";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 20px solid black;
+    left: -20px;
+    top: 50%;
+    margin-top: -10px;
+    background: red;
+  }
 }
 
 .userLocation {
-  // width: 21px !important;
   height: 60px !important;
   margin-left: -10px !important;
   margin-top: -60px !important;
-  // border-radius: 50%;
-  // border: 3px solid white;
-  // background-color: white;
-  // transition: all 0.1s ease-in-out;
-  // box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 </style>
