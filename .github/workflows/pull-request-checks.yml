@@ -29,10 +29,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Node 16
+      - name: Set up Node 18
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 18
       - name: Install dependencies and check prettier format
         run: cd front && npm install && npm run prettier:check
 
@@ -41,10 +41,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Node 16
+      - name: Set up Node 18
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 18
       - name: Install dependencies and check prettier format
         run: npm install -g cspell && cspell --no-summary --no-progress --no-color .
 
