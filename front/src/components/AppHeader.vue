@@ -1,5 +1,5 @@
 <template>
-  <header id="header">
+  <header id="header" lang="fr">
 
     <div class="app-name"> <a href="/">MuseumGo</a> </div>
 
@@ -24,7 +24,7 @@ body {
 }
 
 #header {
-  background-color: #ffffff;
+  background-color: #333333;
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -32,14 +32,14 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+a {
+    color: #d3d3d3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .app-name {
   font-size: 24px;
-  font-weight: bold;
-
-  a {
-    color: #333333;
-    text-decoration: none;
-  }
 }
 
 .search-bar {
@@ -47,13 +47,6 @@ body {
 }
 
 .language-link {
-  color: #333333;
-  font-weight: bold;
   margin-right: 20px;
-
-  a {
-    color: #333333;
-    text-decoration: none;
-  }
 }
 </style>
