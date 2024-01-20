@@ -17,8 +17,9 @@
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <!-- Zoom control -->
+        <!-- Controls -->
         <l-control-zoom position="bottomright"></l-control-zoom>
+        <button id="locateMe" @click="focusOnUserLocation">Locate me</button>
 
         <!-- User location: -->
         <l-marker
@@ -29,7 +30,8 @@
           color="blue"
           fillColor="blue"
         >
-          <l-icon icon-url="ee" class-name="userLocation"></l-icon>
+          <l-icon icon-url="images/MonaLisa.png" class-name="userLocation">
+          </l-icon>
         </l-marker>
 
         <!-- Artworks: -->
@@ -42,7 +44,7 @@
           >
             <l-icon
               icon-url="https://news.artnet.com/app/news-upload/2017/03/Mona_Lisa_by_Leonardo_da_Vinci_from_C2RMF_retouched-256x256.jpg"
-              class-name="randomMarker"
+              class-name="artwork"
             >
             </l-icon>
           </l-marker>
@@ -77,20 +79,26 @@ export default {
     LControlZoom,
   },
   data() {
-    const randomFeatures = [];
+    const randomFeatures = [
+      {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [48.860611, 2.337644],
+        },
+        properties: {},
+      },
+    ];
+
     for (let i = 0; i < 10; i++) {
       randomFeatures.push({
         type: "Feature",
         geometry: {
           type: "Point",
           coordinates: [
-            47.41322 + (Math.random() - 0.5) * 0.25,
-            -1.219482 + (Math.random() - 0.5) * 0.25,
+            48.860611 + (Math.random() - 0.5) * 0.25,
+            2.337644 + (Math.random() - 0.5) * 0.25,
           ],
-        },
-        properties: {
-          code: 44000 + Math.floor(Math.random() * 10000),
-          name: "Nantes",
         },
       });
     }
@@ -104,7 +112,7 @@ export default {
       // Map data
       randomFeatures: randomFeatures,
 
-      defaultLocation: [47.41322, -1.219482],
+      defaultLocation: [48.860611, 2.337644],
       currentLocation: null,
 
       // Map options
@@ -132,6 +140,7 @@ export default {
 
     // User location
     watchUserLocation() {
+      // TODO fix point not updating without zooming
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(
           (position) => {
@@ -142,11 +151,10 @@ export default {
             );
             this.focusOnUserLocation();
 
-            setInterval(() => {
-              // TODO fix point not updating without zooming
-              this.currentLocation.lat += (Math.random() - 0.5) * 0.001;
-              this.currentLocation.lng += (Math.random() - 0.5) * 0.001;
-            }, 1000);
+            // setInterval(() => {
+            // this.currentLocation.lat += (Math.random() - 0.5) * 0.001;
+            // this.currentLocation.lng += (Math.random() - 0.5) * 0.001;
+            // }, 1000);
           },
           () => {
             // Error callback
@@ -205,17 +213,17 @@ export default {
 
 <style lang="scss">
 :root {
-  --marker-size: 70px;
-  --marker-size-half: calc(var(--marker-size) / -2);
-  --marker-hover-size: 80px;
-  --marker-hover-size-half: calc(var(--marker-hover-size) / -2);
+  --artwork-marker-size: 50px;
+  --artwork-marker-size-half: calc(var(--artwork-marker-size) / -2);
+  --artwork-marker-hover-size: 60px;
+  --artwork-marker-hover-size-half: calc(var(--artwork-marker-hover-size) / -2);
 }
 
-.randomMarker {
-  width: var(--marker-size) !important;
-  height: var(--marker-size) !important;
-  margin-left: var(--marker-size-half) !important;
-  margin-top: var(--marker-size-half) !important;
+.artwork {
+  width: var(--artwork-marker-size) !important;
+  height: var(--artwork-marker-size) !important;
+  margin-left: var(--artwork-marker-size-half) !important;
+  margin-top: var(--artwork-marker-size-half) !important;
 
   border-radius: 50%;
   border: 3px solid white;
@@ -227,25 +235,25 @@ export default {
   // Prevent the image to warp when the icon size changes
   object-fit: cover;
 }
-.randomMarker:hover {
+.artwork:hover {
   // Scale up the image
-  width: var(--marker-hover-size) !important;
-  height: var(--marker-hover-size) !important;
-  margin-left: var(--marker-hover-size-half) !important;
-  margin-top: var(--marker-hover-size-half) !important;
+  width: var(--artwork-marker-hover-size) !important;
+  height: var(--artwork-marker-hover-size) !important;
+  margin-left: var(--artwork-marker-hover-size-half) !important;
+  margin-top: var(--artwork-marker-hover-size-half) !important;
   border: 4px solid white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .userLocation {
-  width: 21px !important;
-  height: 21px !important;
+  // width: 21px !important;
+  height: 60px !important;
   margin-left: -10px !important;
-  margin-top: -10px !important;
-  border-radius: 50%;
-  border: 3px solid white;
-  background-color: white;
-  transition: all 0.1s ease-in-out;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin-top: -60px !important;
+  // border-radius: 50%;
+  // border: 3px solid white;
+  // background-color: white;
+  // transition: all 0.1s ease-in-out;
+  // box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 </style>
