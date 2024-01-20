@@ -64,11 +64,11 @@
             </l-icon>
 
             <!-- Museum -->
-            <l-icon
-              v-else
-              icon-url="images/Museum.png"
-              class-name="marker museum"
-            >
+            <l-icon v-else icon-url="images/Museum.png">
+              <img src="images/Museum.png" alt="" class="marker museum" />
+              <div class="artworkNumber">
+                {{ museum.artworks.length }}
+              </div>
             </l-icon>
           </l-marker>
         </l-feature-group>
@@ -280,9 +280,9 @@ export default {
 
 <style lang="scss">
 :root {
-  --marker-size: 30px;
+  --marker-size: 50px;
   --marker-size-half: calc(var(--marker-size) / -2);
-  --marker-hover-size: 40px;
+  --marker-hover-size: 55px;
   --marker-hover-size-half: calc(var(--marker-hover-size) / -2);
   --marker-border-size: 2px;
 }
@@ -310,6 +310,7 @@ export default {
     margin-left: var(--marker-hover-size-half) !important;
     margin-top: var(--marker-hover-size-half) !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000 !important;
   }
 }
 
@@ -318,10 +319,23 @@ export default {
 
 .museum {
   border-color: black;
+  // position: relative;
+}
+.artworkNumber {
+  display: flex;
+  justify-content: center;
+  width: calc(var(--marker-size) / 3);
+  height: calc(var(--marker-size) / 3);
+  position: absolute;
+  bottom: calc(var(--marker-size) / 3);
+  right: calc(var(--marker-size) / -3);
+  padding: 2px;
+  border-radius: 50px;
+  z-index: 1000;
 
-  &::after {
-    content: "eee";
-  }
+  font-weight: bold;
+  color: white;
+  background-color: red;
 }
 
 .userLocation {
