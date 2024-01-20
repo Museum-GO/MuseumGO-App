@@ -64,6 +64,8 @@ import {
   LControlZoom,
 } from "@vue-leaflet/vue-leaflet";
 
+import { latLng } from "leaflet";
+
 export default {
   components: {
     LMap,
@@ -128,17 +130,18 @@ export default {
     },
     watchUserLocation() {
       if (navigator.geolocation) {
-        this.watchID = navigator.geolocation.watchPosition(
+        navigator.geolocation.watchPosition(
           (position) => {
             // Success callback, update the current location
-            this.currentLocation = [
+            this.currentLocation = latLng(
               position.coords.latitude,
-              position.coords.longitude,
-            ];
+              position.coords.longitude
+            );
             this.focusOnUserLocation();
           },
           () => {
             // Error callback
+            console.log("Error while getting user location");
           },
           {
             // Options
@@ -152,11 +155,10 @@ export default {
         this.currentLocation = this.defaultLocation;
       }
     },
-    stopWatchingUserLocation() {
-      if (this.watchID) {
-        navigator.geolocation.clearWatch(this.watchID);
-        this.watchID = null;
-      }
+    updateUserLocationMarker() {
+      console.log("updateUserLocationMarker");
+      if (!this.currentLocation || !this.getMap()) return;
+      this.$refs.userLocation?.setLatLng(this.currentLocation);
     },
 
     focusOnUserLocation() {
@@ -169,6 +171,12 @@ export default {
       if (this.iconWidth > this.iconHeight) {
         this.iconWidth = Math.floor(this.iconHeight / 2);
       }
+    },
+  },
+  watch: {
+    currentLocation() {
+      console.log("currentLocation changed");
+      this.updateUserLocationMarker();
     },
   },
 };
