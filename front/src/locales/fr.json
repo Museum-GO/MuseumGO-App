@@ -1,10 +1,10 @@
 {
   "HelloWorld": {
-    "message": "hello i18n !!",
-    "hello": "Hello from component!",
-    "setVariable": "Set Variable",
-    "variableCorrect": "The variable is correct",
-    "variableIncorrect": "The variable is incorrect"
+    "message": "Bonjour Monde !!",
+    "hello": "Bonjour depuis composant!",
+    "setVariable": "Faire variable",
+    "variableCorrect": "Le variable est impec'",
+    "variableIncorrect": "Le variable est pas impec"
   },
   "Header": {
     "app-name": "MuseeAller",

@@ -1,6 +1,6 @@
 {
   "HelloWorld": {
-    "message": "hello i18n !!",
+    "message": "hello world!!",
     "hello": "Hello from component!",
     "setVariable": "Set Variable",
     "variableCorrect": "The variable is correct",
