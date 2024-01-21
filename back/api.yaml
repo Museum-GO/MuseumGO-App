@@ -1,7 +1,11 @@
 openapi: 3.0.3
 info:
   title: "API MuseumGO"
+<<<<<<< HEAD
   version: 0.1.2
+=======
+  version: 0.1.1
+>>>>>>> main
   description: "A swagger Museum as you never be able to be that swag"
 paths:
   /works:

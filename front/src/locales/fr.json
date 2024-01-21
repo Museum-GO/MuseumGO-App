@@ -1,0 +1,15 @@
+{
+  "HelloWorld": {
+    "message": "Bonjour Monde !!",
+    "hello": "Bonjour depuis composant!",
+    "setVariable": "Faire variable",
+    "variableCorrect": "Le variable est impec'",
+    "variableIncorrect": "Le variable est pas impec"
+  },
+  "Header": {
+    "app-name": "MuseeAller",
+    "search-bar": "Recherche",
+    "fr": "FR",
+    "eng": "ENG"
+  }
+}
