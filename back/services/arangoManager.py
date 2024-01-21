@@ -10,7 +10,6 @@ WORKS_COLLECTION_NAME = "works"
 
 def setup():
     global db
-
     # Load config
     config = get_config()
     HOST = config["ARANGODB"]["HOST"]
@@ -32,36 +31,6 @@ def setup():
 
     # Connect to the MuseumGo database
     db = client.db(DATABASE, username=USER, password=PASSWORD)
-
-    try:
-        # Delete the collections if they exist
-        # if db.has_collection(WORKS_COLLECTION_NAME):
-        #     print(
-        #         f" - Deleting collection {colored(WORKS_COLLECTION_NAME, DEBUG_COLOR)}"
-        #     )
-        #     db.delete_collection(WORKS_COLLECTION_NAME)
-
-        # Insert few documents into the collection for testing purposes
-        # add_work("Mona Lisa", [2.335, 48.861])
-        # add_work("The Starry Night", [4.833, 52.367])
-        # add_work("The Last Supper", [9.19, 45.464])
-        # add_work("The Creation of Adam", [12.483, 41.898])
-        # add_work("The Persistence of Memory", [-73.962, 40.781])
-        # add_work("The Scream", [10.738, 59.913])
-        # add_work("Guernica", [-2.988, 43.319])
-
-        # Create the collections if they don't exist
-        if not db.has_collection(WORKS_COLLECTION_NAME):
-            print(
-                f" - Creating collection {colored(WORKS_COLLECTION_NAME, DEBUG_COLOR)}"
-            )
-            db.create_collection(WORKS_COLLECTION_NAME)
-
-    except exceptions.CollectionListError as e:
-        print(colored(" - Error while creating collections", ERROR_COLOR))
-        print(colored(e, ERROR_COLOR))
-        exit(1)
-
     print(" - Connection established")
 
 
@@ -81,35 +50,28 @@ def get_number_of_works():
 
 
 @dbMustBeSetup
-def work_exists(work_name):
-    work_id = clean_text(work_name)
-
+def work_exists(work_id):
     # Check if a work exists in the database
     return db.collection(WORKS_COLLECTION_NAME).has(work_id)
 
 
 @dbMustBeSetup
-def add_work(work_name, location: list):
-    work_id = clean_text(work_name)
+def add_work(doc):
+    # This function is based of the document model: model.json it will return the document _id
     # Check if the work already exists
-    if work_exists(work_id):
+    work_name = doc["name"]
+    chk_work = work_get_by_name(doc["name"])
+    if chk_work:
         print(
             f"  Work {colored(work_name,ERROR_COLOR)} already exists in the \
 database, skipping"
         )
-        return
+        return chk_work["_id"]
 
     # Add a work to the database
-    document = {
-        "_key": work_id,
-        "name": work_name,
-        "location": {
-            "type": "Point",
-            "coordinates": [location[0], location[1]],
-        },
-    }
 
-    db.collection(WORKS_COLLECTION_NAME).insert(document, overwrite=True)
+    res = db.collection(WORKS_COLLECTION_NAME).insert(doc, overwrite=True)
+    return res["_id"]
 
 
 @dbMustBeSetup
@@ -119,8 +81,7 @@ def get_works() -> list:
 
 
 @dbMustBeSetup
-def get_work(work_name):
-    work_id = clean_text(work_name)
+def get_work(work_id):
     return db.collection(WORKS_COLLECTION_NAME).get(work_id)
 
 
@@ -209,8 +170,7 @@ RETURN work
 
 
 @dbMustBeSetup
-def delete_work(work_name) -> bool:
-    work_id = clean_text(work_name)
+def delete_work(work_id) -> bool:
     # Delete a work from the database
     try:
         db.collection(WORKS_COLLECTION_NAME).delete(work_id)
@@ -218,3 +178,29 @@ def delete_work(work_name) -> bool:
     except exceptions.DocumentDeleteError:
         # The work doesn't exist
         return False
+
+
+@dbMustBeSetup
+def work_get_by_name(work_name):
+    query = f"""
+    FOR doc IN {WORKS_COLLECTION_NAME}
+        FILTER doc.name == "{work_name}"
+        RETURN doc
+"""
+    cursor = db.aql.execute(query)
+    for result in cursor:
+        return result
+
+
+@dbMustBeSetup
+def delete_collection_by_name(collection_name):
+    if db.has_collection(collection_name):
+        print(f" - Deleting collection {colored(collection_name, DEBUG_COLOR)}")
+        db.delete_collection(collection_name)
+
+
+@dbMustBeSetup
+def create_collection_by_name(collection_name):
+    if not db.has_collection(collection_name):
+        print(f" - Creating collection {colored(collection_name, DEBUG_COLOR)}")
+        db.create_collection(collection_name)
