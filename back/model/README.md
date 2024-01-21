@@ -1,7 +1,16 @@
+# Required fields of ArtModel
+- id
+- name
+- image
+- location
+- artists
+- creationPeriod.minDate
+- type
+
 # Optional fields of ArtModel
 - description
-- style
 - maxDate
+- wikiLink
 
 # ID format
-In order to warranty uniqueness of the id, i suggest to use UUID
+UUID
