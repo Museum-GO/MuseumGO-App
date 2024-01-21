@@ -36,6 +36,8 @@ def setup():
     try:
         # Delete the collections if it exist
         #db.delete_collection(WORKS_COLLECTION_NAME)
+        if db.has_collection(WORKS_COLLECTION_NAME):
+            db.delete_collection(WORKS_COLLECTION_NAME)
         # Create the collections if they don't exist
         if not db.has_collection(WORKS_COLLECTION_NAME):
             print(

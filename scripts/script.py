@@ -1,14 +1,15 @@
 import csv, copy,requests
 from bs4 import BeautifulSoup
-model={"name": "TO CHANGE","image": "TO CHANGE","description": {"fr": "To Change"},"location": {"type": "Point","coordinates": [48.860611, 2.337644],"name": "musee du louvre"},"artists": [],"style": {"id": 1,"name": {"fr": "Peinture","en": "Painting"}},"minDate": 0}
+model={"name": "TO CHANGE","image": "TO CHANGE","description": {"fr": "Il n'y a pas de description"},"location": {"type": "Point","coordinates": [48.860611, 2.337644],"name": "musee du louvre"},"artists": [],"type": {"fr": "Peinture","en": "Painting"},"minDate": 0}
 model_list=[]
-with open('Louvre-extract.csv', newline='') as csvfile:
+with open('Louvre.csv', newline='') as csvfile:
     
     reader = csv.reader(csvfile,delimiter=";")
     print(type(reader))
     #We skip the header to get our data directly
     next(reader,None)
     for row in reader:
+        print(row)
     #We analys the current art work
         base_url="https://collections.louvre.fr/ark:/53355/"
         current_model=copy.deepcopy(model)
@@ -31,14 +32,15 @@ with open('Louvre-extract.csv', newline='') as csvfile:
         for current_class in result_dom:
             pic_parameter=current_class.find("img")
             if(pic_parameter.get("src",False)):
-                current_model["image"]="https://collections.louvre.fr/"+pic_parameter["src"]
+                current_model["image"]="https://collections.louvre.fr"+pic_parameter["src"]
         #We should get the description parameter
         history_entries=soup.find_all("div",class_="notice__mnr")
-        print("ENTRIES")
         for entry in history_entries:
             result=entry.find("span",class_="lbl_10")
-            print(result.text)
-
+            current_model["description"]["fr"]=result.text
+        model_list.append(current_model)
+    for m in model_list:
+            print(m["artists"])
 
 
         
