@@ -12,14 +12,3 @@ def get_app_version():
         print(e)
         return "?.?.?"
 
-
-# Clean text
-def clean_text(text):
-    # Remove "/" and "\" from the text
-    text = text.replace("/", "")
-    text = text.replace("/", "")
-
-    # Remove spaces
-    text = text.replace(" ", "_")
-
-    return text

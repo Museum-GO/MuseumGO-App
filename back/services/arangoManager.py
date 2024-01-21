@@ -1,5 +1,4 @@
 from config.init_config import get_config, ERROR_COLOR, DEBUG_COLOR
-from utils.utils import clean_text
 from termcolor import colored
 from arango import ArangoClient, exceptions
 
