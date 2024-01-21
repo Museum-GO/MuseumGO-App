@@ -34,28 +34,17 @@ def setup():
     db = client.db(DATABASE, username=USER, password=PASSWORD)
 
     try:
-        # Delete the collections if they exist
-        # if db.has_collection(WORKS_COLLECTION_NAME):
-        #     print(
-        #         f" - Deleting collection {colored(WORKS_COLLECTION_NAME, DEBUG_COLOR)}"
-        #     )
-        #     db.delete_collection(WORKS_COLLECTION_NAME)
-
-        # Insert few documents into the collection for testing purposes
-        add_work("Mona Lisa", [2.335, 48.861])
-        add_work("The Starry Night", [4.833, 52.367])
-        add_work("The Last Supper", [9.19, 45.464])
-        add_work("The Creation of Adam", [12.483, 41.898])
-        add_work("The Persistence of Memory", [-73.962, 40.781])
-        add_work("The Scream", [10.738, 59.913])
-        add_work("Guernica", [-2.988, 43.319])
-
+        # Delete the collections if it exist
+        db.delete_collection(WORKS_COLLECTION_NAME)
         # Create the collections if they don't exist
         if not db.has_collection(WORKS_COLLECTION_NAME):
             print(
                 f" - Creating collection {colored(WORKS_COLLECTION_NAME, DEBUG_COLOR)}"
             )
             db.create_collection(WORKS_COLLECTION_NAME)
+        #add_work({"name": "Allegoria de la Primavera","image": "https://upload.wikimedia.org/primavera","description": {"fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »","en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'"},"location": {"coordinates": [40.01232, 50.02344],"name": "Musée des Offices"},"artists": ["Sandro Botticelli"],"type": {"fr": "Peinture","en": "Painting"},"creationPeriod": {"minDate": 1500,"maxDate": 1600},"wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)"})
+        work_get_by_name("Allegoria de la Primavera")
+
 
     except exceptions.CollectionListError as e:
         print(colored(" - Error while creating collections", ERROR_COLOR))
@@ -81,18 +70,18 @@ def get_number_of_works():
 
 
 @dbMustBeSetup
-def work_exists(work_name):
-    work_id = clean_text(work_name)
+def work_exists(work_id):
+    
 
     # Check if a work exists in the database
     return db.collection(WORKS_COLLECTION_NAME).has(work_id)
 
 
 @dbMustBeSetup
-def add_work(work_name, location: list):
-    work_id = clean_text(work_name)
+def add_work(doc):
+    #This function is based of the document model: model.json
     # Check if the work already exists
-    if work_exists(work_id):
+    if work_get_by_name(doc["name"]):
         print(
             f"  Work {colored(work_name,ERROR_COLOR)} already exists in the \
 database, skipping"
@@ -100,16 +89,9 @@ database, skipping"
         return
 
     # Add a work to the database
-    document = {
-        "_key": work_id,
-        "name": work_name,
-        "location": {
-            "type": "Point",
-            "coordinates": [location[0], location[1]],
-        },
-    }
 
-    db.collection(WORKS_COLLECTION_NAME).insert(document, overwrite=True)
+    res=db.collection(WORKS_COLLECTION_NAME).insert(doc, overwrite=True)
+    #print(res)
 
 
 @dbMustBeSetup
@@ -117,12 +99,9 @@ def get_works() -> list:
     # Get all the works in the database
     return list(db.collection(WORKS_COLLECTION_NAME).all())
 
-
 @dbMustBeSetup
-def get_work(work_name):
-    work_id = clean_text(work_name)
+def get_work(work_id):
     return db.collection(WORKS_COLLECTION_NAME).get(work_id)
-
 
 @dbMustBeSetup
 def get_closest_works(longitude, latitude, _from, size) -> list:
@@ -155,8 +134,7 @@ RETURN {{work:work, distance,distance}}
 
 
 @dbMustBeSetup
-def delete_work(work_name) -> bool:
-    work_id = clean_text(work_name)
+def delete_work(work_id) -> bool:
     # Delete a work from the database
     try:
         db.collection(WORKS_COLLECTION_NAME).delete(work_id)
@@ -164,3 +142,15 @@ def delete_work(work_name) -> bool:
     except exceptions.DocumentDeleteError:
         # The work doesn't exist
         return False
+
+@dbMustBeSetup     
+def work_get_by_name(work_name):
+    query = f"""
+FOR work IN {WORKS_COLLECTION_NAME}
+FILTER work.name =={work_name}
+RETURN work
+    """
+    cursor = db.aql.execute(query)
+    for result in cursor:
+        print(result)
+        return result
