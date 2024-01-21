@@ -52,7 +52,7 @@
           <l-marker
             v-for="(museum, i) in museums"
             :key="i"
-            :lat-lng="museum.geometry.coordinates"
+            :lat-lng="museum.location.coordinates"
             @click="console.log(museum)"
           >
             <!-- Artwork -->
@@ -93,6 +93,8 @@ import {
 
 import { latLng } from "leaflet";
 
+import api from "@/services/api";
+
 import { constructMuseumsFromArtworks } from "./mapUtils";
 
 export default {
@@ -116,6 +118,10 @@ export default {
       museums: null,
 
       defaultLocation: [48.860611, 2.337644],
+      defaultSearchRect: [
+        [48.730067935507265, 2.215762198023139],
+        [48.69872201673064, 2.277517378382026],
+      ],
       currentLocation: null,
 
       // Map options
@@ -126,72 +132,33 @@ export default {
           fillOpacity: feature.properties.code / 100000,
         };
       },
+
+      cameraCoordinates: null,
+      rangeSearchTarget: 1000,
     };
   },
-  mounted() {
-    // Watch user location
-  },
+  mounted() {},
   computed: {},
   methods: {
     // Artworks and museums
-    loadMuseums(targetCoordinatesIn) {
-      // Load artworks from the server that are around the target coordinates
-      const targetCoordinates = targetCoordinatesIn || this.defaultLocation;
+    loadMuseums(bottomLeftCoordinatesIn, topRightCoordinatesIn) {
+      // Load artworks from the server that are in the given rectangle
+      const bottomLeftCoordinates =
+        [bottomLeftCoordinatesIn.lat, bottomLeftCoordinatesIn.lng] ||
+        this.defaultSearchRect[0];
+      const topRightCoordinates =
+        [topRightCoordinatesIn.lat, topRightCoordinatesIn.lng] ||
+        this.defaultSearchRect[1];
 
-      console.log("Loading artworks around ", targetCoordinates);
-
-      // TMP fake data, TODO remove
-      const artworks = [
-        {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [48.860611, 2.337644], // Louvre
-          },
-          properties: {},
-        },
-        {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [48.8526049229, 2.33466199468], // Eugene Delacroix
-          },
-          properties: {},
-        },
-      ];
-
-      for (let i = 0; i < 10; i++) {
-        artworks.push({
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [
-              targetCoordinates[0] + (Math.random() - 0.5) * 0.25,
-              targetCoordinates[1] + (Math.random() - 0.5) * 0.25,
-            ],
-          },
+      // Request artworks from the server
+      console.log("send");
+      api
+        .getWorksInRect(bottomLeftCoordinates, topRightCoordinates)
+        .then((artworks) => {
+          console.log("receive");
+          // Group artworks by museums
+          this.museums = constructMuseumsFromArtworks(artworks);
         });
-      }
-
-      // Add few more artworks that have the same coordinates as some other artworks
-      const nbMuseums = 5;
-
-      for (let i = 0; i < nbMuseums; i++) {
-        const randomIndex = Math.floor(Math.random() * artworks.length);
-        const randomFeature = artworks[randomIndex];
-        artworks.push({
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: randomFeature.geometry.coordinates,
-          },
-        });
-      }
-
-      // Group artworks by museums
-      const museums = constructMuseumsFromArtworks(artworks);
-
-      this.museums = museums;
     },
 
     // Map
@@ -211,21 +178,15 @@ export default {
         navigator.geolocation.watchPosition(
           (position) => {
             // Success callback, update the current location
-            console.log("User location: ", position.coords);
             this.currentLocation = latLng(
               position.coords.latitude,
               position.coords.longitude
             );
             this.focusOnUserLocation();
-            this.loadMuseums([
-              position.coords.latitude,
-              position.coords.longitude,
-            ]);
-
-            // setInterval(() => {
-            // this.currentLocation.lat += (Math.random() - 0.5) * 0.001;
-            // this.currentLocation.lng += (Math.random() - 0.5) * 0.001;
-            // }, 1000);
+            // this.loadMuseums(
+            //   [position.coords.latitude, position.coords.longitude],
+            //   this.getRangeFromZoom(this.zoom)
+            // );
           },
           () => {
             // Error callback
@@ -243,7 +204,6 @@ export default {
       }
     },
     updateUserLocationMarker() {
-      console.log("updateUserLocationMarker");
       if (!this.currentLocation || !this.getMap()) return;
       this.$refs.userLocation?.setLatLng(this.currentLocation);
     },
@@ -256,17 +216,29 @@ export default {
     watchCameraLocation() {
       if (!this.getMap()) return;
 
-      // this.getMap().on("move", (event) => {
-      //   const artworkSearchTarget = event.target.getCenter();
-      //   // console.log("Camera position ", artworkSearchTarget);
-      //   // TODO, get the artworks around the camera position
-      //   this.loadMuseums([artworkSearchTarget.lat, artworkSearchTarget.lng]);
-      // });
+      this.getMap().on("move", this.cameraLocationUpdated);
+
+      this.getMap().on("zoomend", this.cameraLocationUpdated);
+    },
+
+    cameraLocationUpdated() {
+      const mapBounds = this.getMap().getBounds();
+      const bottomLeft = mapBounds.getSouthWest(); // Bottom-left coordinates
+      const topRight = mapBounds.getNorthEast(); // Top-right coordinates
+
+      this.loadMuseums(bottomLeft, topRight);
+    },
+
+    // Search parameters
+    getRangeFromZoom(zoomLevel) {
+      // Compute the range in meters from the zoom level
+      // const m = -38423.08;
+      // const b = 692115.38;
+      return (20 - zoomLevel) ** 3 * 1000;
     },
   },
   watch: {
     currentLocation() {
-      console.log("currentLocation changed");
       this.updateUserLocationMarker();
     },
   },

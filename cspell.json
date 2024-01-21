@@ -18,7 +18,8 @@
     "termcolor",
     "Vetur",
     "vuex",
-    "werkzeug"
+    "werkzeug",
+    "zoomend"
   ],
   "flagWords": [],
   "ignorePaths": [

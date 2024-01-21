@@ -173,6 +173,8 @@ RETURN {{work:work, distance,distance}}
     # Execute the query
     cursor = db.aql.execute(query)
 
+    print(cursor)
+
     # Merge the results with the distances
     results = []
     for result in cursor:
@@ -181,6 +183,29 @@ RETURN {{work:work, distance,distance}}
 
     # Return the results
     return results
+
+
+@dbMustBeSetup
+def get_works_in_rectangle(
+    bottomLeftLatitude, bottomLeftLongitude, topRightLatitude, topRightLongitude
+) -> list:
+    # Return the works in a rectangle
+
+    # Create the query
+    query = f"""
+FOR work IN {WORKS_COLLECTION_NAME}
+FILTER work.location.coordinates[0] >= {bottomLeftLongitude}
+FILTER work.location.coordinates[0] <= {topRightLongitude}
+FILTER work.location.coordinates[1] >= {bottomLeftLatitude}
+FILTER work.location.coordinates[1] <= {topRightLatitude}
+RETURN work
+    """
+
+    # Execute the query
+    cursor = db.aql.execute(query)
+
+    # Return the results
+    return list(cursor)
 
 
 @dbMustBeSetup

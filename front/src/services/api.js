@@ -18,5 +18,20 @@ export default {
         console.log(error);
       });
   },
-  // ... other API methods
+  getWorksInRect(bottomLeftCoordinates, topRightCoordinates) {
+    return apiClient
+      .get(
+        `/worksInRectangle
+?bottomLeftLat=${bottomLeftCoordinates[0]}
+&bottomLeftLon=${bottomLeftCoordinates[1]}
+&topRightLat=${topRightCoordinates[0]}
+&topRightLon=${topRightCoordinates[1]}`
+      )
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };

@@ -28,6 +28,53 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Work"
+  /worksInRectangle:
+    get:
+      operationId: controller.works.get_works_rect
+      description: Get works that are in a range of a point
+      parameters:
+        - name: bottomLeftLat
+          in: query
+          description: The latitude of the top left point
+          required: true
+          schema:
+            type: number
+            format: double
+            example: 41.40338
+        - name: bottomLeftLon
+          in: query
+          description: The longitude of the top left point
+          required: true
+          schema:
+            type: number
+            format: double
+            example: 2.17403
+        - name: topRightLat
+          in: query
+          description: The latitude of the bottom right point
+          required: true
+          schema:
+            type: number
+            format: double
+            example: 42.40338
+        - name: topRightLon
+          in: query
+          description: The longitude of the bottom right point
+          required: true
+          schema:
+            type: number
+            format: double
+            example: 3.17403
+
+      responses:
+        "200":
+          description: List of works in range
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WorkWithDistance"
 
 components:
   schemas:
@@ -53,3 +100,14 @@ components:
       required:
         - name
         - position
+
+    WorkWithDistance:
+      allOf:
+        - $ref: "#/components/schemas/Work"
+        - type: object
+          properties:
+            distance:
+              type: number
+              format: double
+          required:
+            - distance

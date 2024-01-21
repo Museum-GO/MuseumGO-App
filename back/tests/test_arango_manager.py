@@ -6,7 +6,8 @@ from services.arangoManager import (
     get_works,
     get_work,
     get_closest_works,
-    get_works_in_range
+    get_works_in_range,
+    get_works_in_rectangle,
 )
 import pytest
 
@@ -115,6 +116,25 @@ def test_get_works_in_radius():
     works_in_radius = get_works_in_range(3, 3, 600000)
     assert type(works_in_radius) is list
     assert len(works_in_radius) == 3
+
+
+def test_get_works_in_rectangle():
+    # Get the works in a rectangle
+    # bottomLeftLatitude, bottomLeftLongitude, topRightLatitude, topRightLongitude
+    # add_work("test_work_1", [1, 1])
+    # add_work("test_work_2", [2, 2])
+    # add_work("test_work_3", [3, 3])
+
+    # A rectangle that contains all the works:
+    works_in_rectangle = get_works_in_rectangle(0, 0, 4, 4)
+    assert type(works_in_rectangle) is list
+    assert len(works_in_rectangle) == 3
+
+    # A rectangle that contains only one work:
+    works_in_rectangle = get_works_in_rectangle(0, 0, 1.2, 1.2)
+    assert type(works_in_rectangle) is list
+    assert len(works_in_rectangle) == 1
+    assert works_in_rectangle[0]["name"] == "test_work_1"
 
 
 def test_delete_works():
