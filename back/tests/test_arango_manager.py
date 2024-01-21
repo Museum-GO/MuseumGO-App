@@ -184,7 +184,7 @@ def test_get_works_in_rectangle():
     works_in_rectangle = get_works_in_rectangle(0, 0, 1.2, 1.2)
     assert type(works_in_rectangle) is list
     assert len(works_in_rectangle) == 1
-    assert works_in_rectangle[0]["name"] == "test_work_1"
+    assert works_in_rectangle[0]["name"] == "Allegoria de la Primavera-1"
 
 
 def test_delete_works():
