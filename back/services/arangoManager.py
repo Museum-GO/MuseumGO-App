@@ -9,8 +9,7 @@ WORKS_COLLECTION_NAME = "works"
 
 
 def setup():
-
-
+    global db
     # Load config
     config = get_config()
     HOST = config["ARANGODB"]["HOST"]
@@ -18,7 +17,6 @@ def setup():
     DATABASE = config["ARANGODB"]["DATABASE"]
     USER = config["ARANGODB"]["USER"]
     PASSWORD = config["ARANGODB"]["PASSWORD"]
-
 
     # Connect to ArangoDB
     print("\nConnecting to ArangoDB...")
@@ -36,6 +34,8 @@ def setup():
 
     try:
         print("Test")
+        # delete_collection_by_name("works")
+        # create_collection_by_name("works")
 
     except exceptions.CollectionListError as e:
         print(colored(" - Error while creating collections", ERROR_COLOR))
@@ -70,8 +70,8 @@ def work_exists(work_id):
 def add_work(doc):
     # This function is based of the document model: model.json it will return the document _id
     # Check if the work already exists
-    work_name=doc["name"]
-    chk_work=work_get_by_name(doc["name"])
+    work_name = doc["name"]
+    chk_work = work_get_by_name(doc["name"])
     print(chk_work)
     if chk_work:
         print(
@@ -84,6 +84,7 @@ database, skipping"
 
     res = db.collection(WORKS_COLLECTION_NAME).insert(doc, overwrite=True)
     return res["_id"]
+
 
 @dbMustBeSetup
 def get_works() -> list:
@@ -148,6 +149,7 @@ def work_get_by_name(work_name):
     cursor = db.aql.execute(query)
     for result in cursor:
         return result
+
 
 @dbMustBeSetup
 def delete_collection_by_name(collection_name):
