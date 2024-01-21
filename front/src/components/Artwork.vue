@@ -12,13 +12,13 @@
     <div class="description">
       <p class="description">{{ artwork.description }}</p>
 
-      <p class="location"> <a class="info">Localisation:</a> {{ artwork.location }}</p>
+      <p class="location"> <a class="info">{{ $t("Artwork.location") }}:</a> {{ artwork.location }}</p>
 
-      <p class="author"> <a class="info">Auteur(s):</a> {{ artwork.authors.join(', ') }}</p>
+      <p class="author"> <a class="info">{{ $t("Artwork.author") }}:</a> {{ artwork.authors.join(', ') }}</p>
 
-      <p class="period"> <a class="info">Annee:</a> {{ artwork.year }}</p>
+      <p class="period"> <a class="info">{{ $t("Artwork.period") }}:</a> {{ artwork.year }}</p>
 
-    <a :href="artwork.wikipedia" target="_blank">Plus d'informations sur Wikipédia</a>
+    <a :href="artwork.wikipedia" target="_blank">{{ $t("Artwork.wiki") }}</a>
   </div>
   </div>
 </template>
