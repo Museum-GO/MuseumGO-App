@@ -41,54 +41,42 @@ def test_add_works():
     # Insert some works
     test_doc_id_1 = add_work(
         {
-            "name": "Allegoria de la Primavera-1",
+            "name": "Artwork-1",
             "image": "https://upload.wikimedia.org/primavera",
-            "description": {
-                "fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »",
-                "en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'",
-            },
             "location": {
                 "coordinates": [1, 1],
-                "name": "Musée des Offices",
+                "name": "Museum name",
             },
-            "artists": ["Sandro Botticelli"],
-            "type": {"fr": "Peinture", "en": "Painting"},
+            "artists": ["Artist"],
+            "type": {"en": "Painting"},
             "creationPeriod": {"minDate": 1500, "maxDate": 1600},
             "wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)",
         }
     )
     test_doc_id_2 = add_work(
         {
-            "name": "Allegoria de la Primavera-2",
+            "name": "Artwork-2",
             "image": "https://upload.wikimedia.org/primavera",
-            "description": {
-                "fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »",
-                "en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'",
-            },
             "location": {
                 "coordinates": [2, 2],
-                "name": "Musée des Offices",
+                "name": "Museum name",
             },
-            "artists": ["Sandro Botticelli"],
-            "type": {"fr": "Peinture", "en": "Painting"},
+            "artists": ["Artist"],
+            "type": {"en": "Painting"},
             "creationPeriod": {"minDate": 1500, "maxDate": 1600},
             "wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)",
         }
     )
     test_doc_id_3 = add_work(
         {
-            "name": "Allegoria de la Primavera-3",
+            "name": "Artwork-3",
             "image": "https://upload.wikimedia.org/primavera",
-            "description": {
-                "fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »",
-                "en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'",
-            },
             "location": {
                 "coordinates": [3, 3],
-                "name": "Musée des Offices",
+                "name": "Museum name",
             },
-            "artists": ["Sandro Botticelli"],
-            "type": {"fr": "Peinture", "en": "Painting"},
+            "artists": ["Artist"],
+            "type": {"en": "Painting"},
             "creationPeriod": {"minDate": 1500, "maxDate": 1600},
             "wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)",
         }
@@ -122,9 +110,9 @@ def test_get_works():
         check_that_dict_is_a_work(work)
 
     # Check that the inserted works are in the list
-    assert any(work["name"] == "Allegoria de la Primavera-1" for work in works)
-    assert any(work["name"] == "Allegoria de la Primavera-2" for work in works)
-    assert any(work["name"] == "Allegoria de la Primavera-3" for work in works)
+    assert any(work["name"] == "Artwork-1" for work in works)
+    assert any(work["name"] == "Artwork-2" for work in works)
+    assert any(work["name"] == "Artwork-3" for work in works)
 
 
 def test_get_work():
@@ -136,7 +124,7 @@ def test_get_work():
     # Check that the work is correct
     check_that_dict_is_a_work(work)
 
-    assert work["name"] == "Allegoria de la Primavera-1"
+    assert work["name"] == "Artwork-1"
     assert work["location"]["coordinates"][0] == 1
     assert work["location"]["coordinates"][1] == 1
 
@@ -152,9 +140,9 @@ def test_get_closest_works():
         check_that_dict_is_a_work(work)
 
     # Check that the closest works are correct
-    assert closest_works[0]["name"] == "Allegoria de la Primavera-3"
-    assert closest_works[1]["name"] == "Allegoria de la Primavera-2"
-    assert closest_works[2]["name"] == "Allegoria de la Primavera-1"
+    assert closest_works[0]["name"] == "Artwork-3"
+    assert closest_works[1]["name"] == "Artwork-2"
+    assert closest_works[2]["name"] == "Artwork-1"
 
 
 def test_get_works_in_radius():
@@ -184,7 +172,7 @@ def test_get_works_in_rectangle():
     works_in_rectangle = get_works_in_rectangle(0, 0, 1.2, 1.2)
     assert type(works_in_rectangle) is list
     assert len(works_in_rectangle) == 1
-    assert works_in_rectangle[0]["name"] == "Allegoria de la Primavera-1"
+    assert works_in_rectangle[0]["name"] == "Artwork-1"
 
 
 def test_delete_works():
