@@ -64,9 +64,4 @@ export default {
     width : 50%;
   }
 
-.test
-
-
-
-
 </style>
