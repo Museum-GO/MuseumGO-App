@@ -10,7 +10,7 @@ import ArtWork from "@/components/Artwork.vue";
 export default {
   components: {
     ArtWork,
-  } 
+  },
 };
 </script>
 
