@@ -5,7 +5,7 @@
     </div>
 
     <div class="search-bar">
-      <input type="text" :placeholder="$t('Header.search-bar')">
+      <input type="text" :placeholder="$t('Header.search-bar')" />
     </div>
 
     <div class="language-link">
