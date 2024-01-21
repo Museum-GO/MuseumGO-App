@@ -31,17 +31,6 @@ def setup():
 
     # Connect to the MuseumGo database
     db = client.db(DATABASE, username=USER, password=PASSWORD)
-
-    try:
-        print("Test")
-        # delete_collection_by_name("works")
-        # create_collection_by_name("works")
-
-    except exceptions.CollectionListError as e:
-        print(colored(" - Error while creating collections", ERROR_COLOR))
-        print(colored(e, ERROR_COLOR))
-        exit(1)
-
     print(" - Connection established")
 
 
@@ -72,7 +61,6 @@ def add_work(doc):
     # Check if the work already exists
     work_name = doc["name"]
     chk_work = work_get_by_name(doc["name"])
-    print(chk_work)
     if chk_work:
         print(
             f"  Work {colored(work_name,ERROR_COLOR)} already exists in the \
@@ -145,7 +133,6 @@ def work_get_by_name(work_name):
         FILTER doc.name == "{work_name}"
         RETURN doc
 """
-    print(query)
     cursor = db.aql.execute(query)
     for result in cursor:
         return result
