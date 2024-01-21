@@ -11,4 +11,3 @@ def get_app_version():
     except Exception as e:
         print(e)
         return "?.?.?"
-
