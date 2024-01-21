@@ -1,8 +1,13 @@
 :root {
-  --fontColor: #2c3e50;
-  --fontColorLight: #66798d;
+  /* Background color */
+  --BackgroundColorDark: #333333;
+  --BackgroundColor: #d3d3d3;
 
-  /* MuseumGo colors */
+  /* Font color */
+  --fontColorLight: #d3d3d3;
+  --fontColor: #333333;
+
+  /* Exemple colors */
   --primary: #009ddf; // Important buttons
   --primaryLight: #c2edff;
   --primaryDark: #046c99;
@@ -18,11 +23,12 @@ body {
   color: var(--fontColor);
   padding: 0;
   margin: 0;
+  background-color: var(--BackgroundColor);
 }
 
 button {
-  background-color: var(--primary);
-  color: white;
+  background-color: var(--BackgroundColorDark);
+  color: var(--fontColor);
   border: none;
   border-radius: 5px;
   padding: 3px 5px;
