@@ -1,11 +1,11 @@
 :root {
   /* Background color */
   --BackgroundColor: #333333;
-  --BackgroundColorLight: #808080;
+  --BackgroundColorLight: #d3d3d3;
 
   /* Font color */
   --fontColor: #d3d3d3;
-  --fontColorLight: #F9F9F9;
+  --fontColorLight: #333333;
 
   /* Exemple colors */
   --primary: #009ddf; // Important buttons
@@ -20,7 +20,7 @@ html,
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
-  color: var(--fontColor);
+  color: var(--fontColorLight);
   padding: 0;
   margin: 0;
   background-color: var(--BackgroundColorLight);
@@ -28,7 +28,7 @@ body {
 
 button {
   background-color: var(--BackgroundColor);
-  color: #d3d3d3;
+  color: var(--fontColor);
   border: none;
   border-radius: 5px;
   padding: 3px 5px;
