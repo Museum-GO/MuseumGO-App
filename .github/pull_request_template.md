@@ -9,4 +9,3 @@ Closes #
 - [ ] I have performed a self-review of my code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have written unit tests for my code if applicable
-- [ ] I have increased the version number in the front/package.json and in the back/api.yaml files
