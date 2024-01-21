@@ -3,7 +3,7 @@
     <div id="map-container">
       <l-map
         ref="map"
-        v-model:zoom="zoom"
+        :zoom="zoom"
         :center="defaultLocation"
         :options="{ zoomControl: false }"
         @ready="onReady"
@@ -256,12 +256,12 @@ export default {
     watchCameraLocation() {
       if (!this.getMap()) return;
 
-      this.getMap().on("move", () => {
-        // const artworkSearchTarget = event.target.getCenter();
-        // console.log("Camera position ", artworkSearchTarget);
-        // TODO, get the artworks around the camera position
-        // this.loadMuseums([artworkSearchTarget.lat, artworkSearchTarget.lng]);
-      });
+      // this.getMap().on("move", (event) => {
+      //   const artworkSearchTarget = event.target.getCenter();
+      //   // console.log("Camera position ", artworkSearchTarget);
+      //   // TODO, get the artworks around the camera position
+      //   this.loadMuseums([artworkSearchTarget.lat, artworkSearchTarget.lng]);
+      // });
     },
   },
   watch: {
