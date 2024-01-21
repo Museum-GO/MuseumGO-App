@@ -1,11 +1,11 @@
 :root {
   /* Background color */
-  --BackgroundColor: #333333;
-  --BackgroundColorLight: #d3d3d3;
+  --BackgroundColorDark: #333333;
+  --BackgroundColor: #d3d3d3;
 
   /* Font color */
-  --fontColor: #d3d3d3;
-  --fontColorLight: #333333;
+  --fontColorLight: #d3d3d3;
+  --fontColor: #333333;
 
   /* Exemple colors */
   --primary: #009ddf; // Important buttons
@@ -20,14 +20,14 @@ html,
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
-  color: var(--fontColorLight);
+  color: var(--fontColor);
   padding: 0;
   margin: 0;
-  background-color: var(--BackgroundColorLight);
+  background-color: var(--BackgroundColor);
 }
 
 button {
-  background-color: var(--BackgroundColor);
+  background-color: var(--BackgroundColorDark);
   color: var(--fontColor);
   border: none;
   border-radius: 5px;
