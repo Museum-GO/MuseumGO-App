@@ -1,6 +1,6 @@
 <template>
   <div class="artwork">
-    <img :src="artwork.image" alt="Artwork Image" class="image" />
+    <img alt="Artwork Image" :src="artwork.image" class="image" />
     <div class="details">
       <h2 class="title">{{ artwork.name }}</h2>
       <p class="author">Auteur(s): {{ artwork.authors.join(', ') }}</p>
@@ -17,12 +17,12 @@ export default {
   data() {
     return {
       artwork: {
-        image: 'chemin/vers/image.jpg',
+        image: '../assets/logo.png',
         name: 'Nom de l\'œuvre',
         authors: ['Auteur 1', 'Auteur 2'],
         location: 'Ville ou musée',
         description: 'Description de l\'œuvre',
-        wikipedia: 'lien_vers_wikipedia'
+        wikipedia: 'https://en.wikipedia.org/wiki/Vue.js#History'
       }
     };
   }

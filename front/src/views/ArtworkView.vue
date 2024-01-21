@@ -1,7 +1,6 @@
 <template>
   <div class="Artwork">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <ArtWork msg="Welcome to Your Vue.js App" />
+    <ArtWork />
   </div>
 </template>
 
@@ -16,14 +15,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {
+.Artwork {
   display: flex;
   flex-direction: column;
-
-  img {
-    width: 200px;
-    height: auto;
-    margin: 0 auto;
-  }
 }
 </style>
