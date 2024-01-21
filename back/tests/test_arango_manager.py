@@ -24,7 +24,6 @@ def setup_database():
     delete_work("test_work_1")
 
 
-
 def test_get_number_of_works():
     global original_number_of_works
     # Get the current number of works
@@ -35,9 +34,63 @@ def test_get_number_of_works():
 def test_add_works():
     global test_doc_id_1, test_doc_id_2, test_doc_id_3
     # Insert some works
-    test_doc_id_1 = add_work({"_id": "74a9fe12-202d-4922-b6af-e3b3d48da1bd","name": "Allegoria de la Primavera-1","image": "https://upload.wikimedia.org/primavera","description": {"fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »","en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'"},"location": {"coordinates": [40.01232, 50.02344],"name": "Musée des Offices"},"artists": ["Sandro Botticelli"],"type": {"fr": "Peinture","en": "Painting"},"creationPeriod": {"minDate": 1500,"maxDate": 1600},"wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)"})
-    add_work({"_id": "74a9fe13-202d-4922-b6af-e3b3d48da1bd","name": "Allegoria de la Primavera-2","image": "https://upload.wikimedia.org/primavera","description": {"fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »","en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'"},"location": {"coordinates": [40.01232, 50.02344],"name": "Musée des Offices"},"artists": ["Sandro Botticelli"],"type": {"fr": "Peinture","en": "Painting"},"creationPeriod": {"minDate": 1500,"maxDate": 1600},"wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)"})
-    add_work({"_id": "74a9fe14-202d-4922-b6af-e3b3d48da1bd","name": "Allegoria de la Primavera-3","image": "https://upload.wikimedia.org/primavera","description": {"fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »","en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'"},"location": {"coordinates": [40.01232, 50.02344],"name": "Musée des Offices"},"artists": ["Sandro Botticelli"],"type": {"fr": "Peinture","en": "Painting"},"creationPeriod": {"minDate": 1500,"maxDate": 1600},"wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)"})
+    test_doc_id_1 = add_work(
+        {
+            "_id": "74a9fe12-202d-4922-b6af-e3b3d48da1bd",
+            "name": "Allegoria de la Primavera-1",
+            "image": "https://upload.wikimedia.org/primavera",
+            "description": {
+                "fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »",
+                "en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'",
+            },
+            "location": {
+                "coordinates": [40.01232, 50.02344],
+                "name": "Musée des Offices",
+            },
+            "artists": ["Sandro Botticelli"],
+            "type": {"fr": "Peinture", "en": "Painting"},
+            "creationPeriod": {"minDate": 1500, "maxDate": 1600},
+            "wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)",
+        }
+    )
+    add_work(
+        {
+            "_id": "74a9fe13-202d-4922-b6af-e3b3d48da1bd",
+            "name": "Allegoria de la Primavera-2",
+            "image": "https://upload.wikimedia.org/primavera",
+            "description": {
+                "fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »",
+                "en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'",
+            },
+            "location": {
+                "coordinates": [40.01232, 50.02344],
+                "name": "Musée des Offices",
+            },
+            "artists": ["Sandro Botticelli"],
+            "type": {"fr": "Peinture", "en": "Painting"},
+            "creationPeriod": {"minDate": 1500, "maxDate": 1600},
+            "wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)",
+        }
+    )
+    add_work(
+        {
+            "_id": "74a9fe14-202d-4922-b6af-e3b3d48da1bd",
+            "name": "Allegoria de la Primavera-3",
+            "image": "https://upload.wikimedia.org/primavera",
+            "description": {
+                "fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »",
+                "en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'",
+            },
+            "location": {
+                "coordinates": [40.01232, 50.02344],
+                "name": "Musée des Offices",
+            },
+            "artists": ["Sandro Botticelli"],
+            "type": {"fr": "Peinture", "en": "Painting"},
+            "creationPeriod": {"minDate": 1500, "maxDate": 1600},
+            "wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)",
+        }
+    )
     # Check that the number of works has increased
     assert get_number_of_works() == original_number_of_works + 3
 
@@ -54,7 +107,6 @@ def check_that_dict_is_a_work(work):
     assert type(work["location"]["coordinates"]) is list
     assert type(work["location"]["coordinates"][0]) in (int, float)
     assert type(work["location"]["coordinates"][1]) in (int, float)
-
 
 
 def test_get_works():
