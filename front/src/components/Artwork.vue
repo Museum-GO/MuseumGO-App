@@ -3,8 +3,9 @@
     <!-- <img alt="Artwork Image" :src="artwork.image" class="image" /> -->
     <div class="top">
       <h2 class="title">{{ artwork.name }}</h2>
-      <img alt="Artwork Image" src="../assets/logo.png" class="image" />
+      <img alt="Artwork Image" :src="artwork.image" class="image" />
     </div>
+    {{ artwork.image }}
 
     <div class="description">
       <p class="description">{{ artwork.description }}</p>

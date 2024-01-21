@@ -17,8 +17,13 @@ const routes = [
       },
       {
         name: "artwork",
-        path: "/artwork",
+        path: "/artwork/:artwork",
         component: () => import("../views/ArtworkView.vue"),
+      },
+      {
+        name: "null",
+        path: "/artwork",
+        component: () => import("../views/nullView.vue"),
       },
     ],
   },
