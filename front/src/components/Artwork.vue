@@ -1,6 +1,8 @@
 <template>
   <div class="artwork">
     <!-- <img alt="Artwork Image" :src="artwork.image" class="image" /> -->
+    <h1>{{ id_artwork }}</h1>
+
     <div class="top">
       <h2 class="title">{{ artwork.name }}</h2>
       <img alt="Artwork Image" :src="artwork.image" class="image" />
@@ -44,7 +46,9 @@ export default {
         wikipedia: "https://en.wikipedia.org/wiki/Vue.js#History",
       },
     };
-  },
+  },created() {
+    this.id_artwork = this.$route.params.id_artwork;
+  }
 };
 </script>
 <style lang="scss" scoped>

@@ -17,12 +17,12 @@ const routes = [
       },
       {
         name: "artwork",
-        path: "/artwork/:artwork",
+        path: "/artwork/:id_artwork",
         component: () => import("../views/ArtworkView.vue"),
       },
       {
         name: "null",
-        path: "/artwork",
+        path: "/:pathMatch(.*)*",
         component: () => import("../views/nullView.vue"),
       },
     ],
