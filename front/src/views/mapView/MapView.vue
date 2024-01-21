@@ -373,7 +373,7 @@ export default {
     z-index: 100;
 
     color: white;
-    background-color: black;
+    background-color: var(--primary-color);
     // Force the text to be on one line
     white-space: nowrap;
   }

@@ -42,13 +42,13 @@ def setup():
         #     db.delete_collection(WORKS_COLLECTION_NAME)
 
         # Insert few documents into the collection for testing purposes
-        add_work("Mona Lisa", [2.335, 48.861])
-        add_work("The Starry Night", [4.833, 52.367])
-        add_work("The Last Supper", [9.19, 45.464])
-        add_work("The Creation of Adam", [12.483, 41.898])
-        add_work("The Persistence of Memory", [-73.962, 40.781])
-        add_work("The Scream", [10.738, 59.913])
-        add_work("Guernica", [-2.988, 43.319])
+        # add_work("Mona Lisa", [2.335, 48.861])
+        # add_work("The Starry Night", [4.833, 52.367])
+        # add_work("The Last Supper", [9.19, 45.464])
+        # add_work("The Creation of Adam", [12.483, 41.898])
+        # add_work("The Persistence of Memory", [-73.962, 40.781])
+        # add_work("The Scream", [10.738, 59.913])
+        # add_work("Guernica", [-2.988, 43.319])
 
         # Create the collections if they don't exist
         if not db.has_collection(WORKS_COLLECTION_NAME):
@@ -138,6 +138,35 @@ LET distance = DISTANCE(
     {latitude})
 SORT distance ASC
 LIMIT {_from}, {size}
+RETURN {{work:work, distance,distance}}
+    """
+
+    # Execute the query
+    cursor = db.aql.execute(query)
+
+    # Merge the results with the distances
+    results = []
+    for result in cursor:
+        result["work"]["distance"] = result["distance"]
+        results.append(result["work"])
+
+    # Return the results
+    return results
+
+
+@dbMustBeSetup
+def get_works_in_range(longitude, latitude, range) -> list:
+    # Return the works near a location
+
+    # Create the query
+    query = f"""
+FOR work IN {WORKS_COLLECTION_NAME}
+LET distance = DISTANCE(
+    work.location.coordinates[0],
+    work.location.coordinates[1],
+    {longitude},
+    {latitude})
+FILTER distance < {range}
 RETURN {{work:work, distance,distance}}
     """
 

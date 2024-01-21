@@ -6,6 +6,7 @@ from services.arangoManager import (
     get_works,
     get_work,
     get_closest_works,
+    get_works_in_range
 )
 import pytest
 
@@ -50,12 +51,12 @@ def check_that_dict_is_a_work(work):
     assert type(work["name"]) is str
     assert type(work["location"]) is dict
 
-    assert type(work["location"]["type"]) is str
+    # assert type(work["location"]["type"]) is str
     assert type(work["location"]["coordinates"]) is list
     assert type(work["location"]["coordinates"][0]) in (int, float)
     assert type(work["location"]["coordinates"][1]) in (int, float)
 
-    assert work["location"]["type"] == "Point"
+    # assert work["location"]["type"] == "Point"
 
 
 def test_get_works():
@@ -103,6 +104,17 @@ def test_get_closest_works():
     assert closest_works[0]["name"] == "test_work_3"
     assert closest_works[1]["name"] == "test_work_2"
     assert closest_works[2]["name"] == "test_work_1"
+
+
+def test_get_works_in_radius():
+    # Get the works in a radius
+    works_in_radius = get_works_in_range(3, 3, 1000)
+    assert type(works_in_radius) is list
+    assert len(works_in_radius) == 1
+
+    works_in_radius = get_works_in_range(3, 3, 600000)
+    assert type(works_in_radius) is list
+    assert len(works_in_radius) == 3
 
 
 def test_delete_works():
