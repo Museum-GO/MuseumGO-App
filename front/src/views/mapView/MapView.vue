@@ -151,11 +151,9 @@ export default {
         this.defaultSearchRect[1];
 
       // Request artworks from the server
-      console.log("send");
       api
         .getWorksInRect(bottomLeftCoordinates, topRightCoordinates)
         .then((artworks) => {
-          console.log("receive");
           // Group artworks by museums
           this.museums = constructMuseumsFromArtworks(artworks);
         });
@@ -345,7 +343,7 @@ export default {
     z-index: 100;
 
     color: white;
-    background-color: var(--primary-color);
+    background-color: var(--BackgroundColorDark);
     // Force the text to be on one line
     white-space: nowrap;
   }

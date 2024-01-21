@@ -159,9 +159,9 @@ def test_get_works_in_radius():
 def test_get_works_in_rectangle():
     # Get the works in a rectangle
     # bottomLeftLatitude, bottomLeftLongitude, topRightLatitude, topRightLongitude
-    # add_work("test_work_1", [1, 1])
-    # add_work("test_work_2", [2, 2])
-    # add_work("test_work_3", [3, 3])
+    # add_work("Artwork_1", [1, 1])
+    # add_work("Artwork_2", [2, 2])
+    # add_work("Artwork_3", [3, 3])
 
     # A rectangle that contains all the works:
     works_in_rectangle = get_works_in_rectangle(0, 0, 4, 4)
