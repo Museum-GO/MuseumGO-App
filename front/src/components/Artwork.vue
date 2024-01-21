@@ -45,9 +45,10 @@ export default {
         wikipedia: "https://en.wikipedia.org/wiki/Vue.js#History",
       },
     };
-  },created() {
+  },
+  created() {
     this.id_artwork = this.$route.params.id_artwork;
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
