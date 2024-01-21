@@ -38,7 +38,6 @@
     background-color: #333333;
     padding: 10px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
@@ -51,10 +50,12 @@
 
   .app-name {
     font-size: 24px;
+    flex-grow: 1;
   }
 
   .search-bar {
-    margin-left: 20px;
+    margin-left: 10px; /* Ajout d'une marge entre la barre de recherche et l'élément précédent */
+    margin-right: 10px; /* Ajout d'une marge entre la barre de recherche et l'élément suivant */
   }
 
   .language-link {
