@@ -171,8 +171,8 @@ export default {
 
     // User location
     watchUserLocation() {
-      // TODO fix point not updating without zooming
       if (navigator.geolocation) {
+        // Get the current location from the browser
         navigator.geolocation.watchPosition(
           (position) => {
             // Success callback, update the current location
@@ -181,10 +181,6 @@ export default {
               position.coords.longitude
             );
             this.focusOnUserLocation();
-            // this.loadMuseums(
-            //   [position.coords.latitude, position.coords.longitude],
-            //   this.getRangeFromZoom(this.zoom)
-            // );
           },
           () => {
             // Error callback
@@ -225,14 +221,6 @@ export default {
       const topRight = mapBounds.getNorthEast(); // Top-right coordinates
 
       this.loadMuseums(bottomLeft, topRight);
-    },
-
-    // Search parameters
-    getRangeFromZoom(zoomLevel) {
-      // Compute the range in meters from the zoom level
-      // const m = -38423.08;
-      // const b = 692115.38;
-      return (20 - zoomLevel) ** 3 * 1000;
     },
   },
   watch: {
@@ -290,9 +278,6 @@ export default {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 1000 !important;
   }
-}
-
-.artwork {
 }
 
 .museum {
@@ -361,9 +346,6 @@ export default {
     .artworkNumber {
       bottom: calc(var(--marker-hover-size) / 3);
       right: calc(var(--marker-hover-size) / -3);
-    }
-
-    .banner {
     }
   }
 }
