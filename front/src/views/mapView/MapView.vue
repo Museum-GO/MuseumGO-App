@@ -19,7 +19,7 @@
 
         <!-- Controls -->
         <l-control-zoom position="bottomright"></l-control-zoom>
-        <button id="focusOnUserLocation" @click="focusOnUserLocation">
+        <button id="focusOnUserLocationBtn" @click="focusOnUserLocation">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -107,7 +107,8 @@ export default {
   data() {
     return {
       // Map properties
-      zoom: 15,
+      baseZoom: 15,
+      zoom: this.baseZoom,
       iconWidth: 100,
       iconHeight: 100,
 
@@ -248,7 +249,7 @@ export default {
     },
     focusOnUserLocation() {
       if (!this.currentLocation || !this.getMap()) return;
-      this.getMap().panTo(this.currentLocation, this.zoom);
+      this.getMap().setView(this.currentLocation, this.baseZoom);
     },
 
     // Camera location
@@ -393,7 +394,6 @@ export default {
     }
 
     .banner {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
   }
 }
@@ -405,13 +405,19 @@ export default {
   filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
 }
 
-#focusOnUserLocation {
+#focusOnUserLocationBtn {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 31px;
+  height: 31px;
   bottom: 100px;
-  right: 10px;
+  right: 12px;
   z-index: 1000;
+  margin: 0;
+  border-radius: 3px;
   background-color: white;
-  border: solid 1px black;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 1);
 }
 </style>
