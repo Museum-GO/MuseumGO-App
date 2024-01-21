@@ -5,7 +5,10 @@ from services.arangoManager import (
     delete_work,
     get_works,
     get_work,
+    work_get_by_name,
     get_closest_works,
+    delete_collection_by_name,
+    create_collection_by_name
 )
 import pytest
 
@@ -20,8 +23,9 @@ def setup_database():
     # This code will run before the first test
     setup()
 
-    # Delete the works if they exist
-    delete_work("test_work_1")
+    # Delete the collection and create it again for test purposes
+    delete_collection_by_name("works")
+    create_collection_by_name("works")
 
 
 def test_get_number_of_works():
@@ -36,8 +40,8 @@ def test_add_works():
     # Insert some works
     test_doc_id_1 = add_work(
         {
-            "_id": "74a9fe12-202d-4922-b6af-e3b3d48da1bd",
-            "name": "Allegoria de la Primavera-1",
+
+            "name": "Allegoria de la Primaveraa",
             "image": "https://upload.wikimedia.org/primavera",
             "description": {
                 "fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »",
@@ -53,10 +57,8 @@ def test_add_works():
             "wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)",
         }
     )
-    add_work(
-        {
-            "_id": "74a9fe13-202d-4922-b6af-e3b3d48da1bd",
-            "name": "Allegoria de la Primavera-2",
+    test_doc_id_2=add_work({
+            "name": "Allegoria de la Primaverab",
             "image": "https://upload.wikimedia.org/primavera",
             "description": {
                 "fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »",
@@ -72,10 +74,9 @@ def test_add_works():
             "wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)",
         }
     )
-    add_work(
+    test_doc_id_3=add_work(
         {
-            "_id": "74a9fe14-202d-4922-b6af-e3b3d48da1bd",
-            "name": "Allegoria de la Primavera-3",
+            "name": "Allegoria de la Primaverac",
             "image": "https://upload.wikimedia.org/primavera",
             "description": {
                 "fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »",
@@ -97,7 +98,6 @@ def test_add_works():
 
 def check_that_dict_is_a_work(work):
     assert type(work) is dict
-    assert "_id" in work
     assert "name" in work
     assert "location" in work
     assert type(work["_id"]) is str
@@ -128,7 +128,8 @@ def test_get_works():
 
 def test_get_work():
     # Get a work
-    work = get_work("74a9fe12-202d-4922-b6af-e3b3d48da1bd")
+    global test_doc_id_1
+    work = get_work(test_doc_id_1)
     assert type(work) is dict
 
     # Check that the work is correct
