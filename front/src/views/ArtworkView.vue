@@ -1,5 +1,4 @@
 <template>
-  <hi>{{ id_artwork }}</hi>
 
   <div class="Artwork">
     <ArtWork />
