@@ -50,26 +50,26 @@
         <!-- Artworks: -->
         <l-feature-group>
           <l-marker
-            v-for="(museum, i) in museums"
-            :key="i"
+            v-for="museum in museums"
+            :key="museum.id"
             :lat-lng="museum.location.coordinates"
             @click="console.log(museum)"
           >
             <!-- Artwork -->
-            <l-icon
-              v-if="museum.artworks.length == 1"
-              icon-url="https://news.artnet.com/app/news-upload/2017/03/Mona_Lisa_by_Leonardo_da_Vinci_from_C2RMF_retouched-256x256.jpg"
-              class-name="marker artwork growOnHover"
-            >
+            <l-icon v-if="museum.nbArtworks == 1">
+              <div class="marker artwork">
+                <img :src="museum.imageUrl" alt="" />
+                <div class="banner">{{ museum.name }}</div>
+              </div>
             </l-icon>
 
             <!-- Museum -->
             <l-icon v-else icon-url="images/Museum.png">
-              <div class="museum">
-                <div class="banner">Louvre LouvreLouvre</div>
-                <img src="images/Museum.png" alt="" class="marker" />
+              <div class="marker museum">
+                <img src="images/Museum.png" alt="" />
+                <div class="banner">{{ museum.name }}</div>
                 <div class="artworkNumber">
-                  {{ museum.artworks.length }}
+                  {{ museum.nbArtworks }}
                 </div>
               </div>
             </l-icon>
@@ -109,7 +109,7 @@ export default {
   data() {
     return {
       // Map properties
-      baseZoom: 15,
+      baseZoom: 13,
       zoom: this.baseZoom,
       iconWidth: 100,
       iconHeight: 100,
@@ -210,17 +210,18 @@ export default {
     watchCameraLocation() {
       if (!this.getMap()) return;
 
-      this.getMap().on("move", this.cameraLocationUpdated);
-
-      this.getMap().on("zoomend", this.cameraLocationUpdated);
+      this.getMap().on("moveend", this.cameraLocationUpdated);
     },
 
     cameraLocationUpdated() {
-      const mapBounds = this.getMap().getBounds();
-      const bottomLeft = mapBounds.getSouthWest(); // Bottom-left coordinates
-      const topRight = mapBounds.getNorthEast(); // Top-right coordinates
-
-      this.loadMuseums(bottomLeft, topRight);
+      try {
+        const mapBounds = this.getMap().getBounds();
+        const bottomLeft = mapBounds.getSouthWest(); // Bottom-left coordinates
+        const topRight = mapBounds.getNorthEast(); // Top-right coordinates
+        this.loadMuseums(bottomLeft, topRight);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   watch: {
@@ -250,44 +251,81 @@ export default {
 }
 
 .marker {
-  width: var(--marker-size) !important;
-  height: var(--marker-size) !important;
-  margin-left: var(--marker-size-half) !important;
-  margin-top: var(--marker-size-half) !important;
+  img {
+    position: absolute;
 
-  border-radius: 50%;
-  border: var(--marker-border-size) solid white;
-  background-color: white;
-  transition: all 0.1s ease-in-out;
+    width: var(--marker-size) !important;
+    height: var(--marker-size) !important;
+    margin-left: var(--marker-size-half) !important;
+    margin-top: var(--marker-size-half) !important;
 
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    border: var(--marker-border-size) solid white;
+    background-color: white;
+    transition: all 0.1s ease-in-out;
 
-  // Prevent the image to warp when the icon size changes
-  object-fit: cover;
-}
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 
-.growOnHover {
-  transition: all 0.1s ease-in-out;
+    // Prevent the image to warp when the icon size changes
+    z-index: 1000;
+    object-fit: cover;
+  }
 
+  .banner {
+    position: absolute;
+    // min-width: calc(var(--marker-size) * 2);
+    top: calc(var(--marker-size) / -2);
+    padding-top: calc(var(--marker-size) / 5);
+    padding-bottom: calc(var(--marker-size) / 5);
+    padding-left: calc(var(--marker-size) / 3);
+    padding-right: calc(var(--marker-size) / 8);
+
+    margin-top: calc(var(--marker-size) / 6.7);
+    margin-bottom: calc(var(--marker-size) / 6.7);
+    margin-right: 0;
+    margin-left: calc(var(--marker-size) * 0.32);
+
+    border-top-right-radius: calc(var(--marker-size) / 10);
+    border-bottom-right-radius: calc(var(--marker-size) / 10);
+    z-index: 100;
+
+    background-color: white;
+    // Force the text to be on one line
+    white-space: nowrap;
+  }
   &:hover {
-    // Scale up the image
-    width: var(--marker-hover-size) !important;
-    height: var(--marker-hover-size) !important;
-    margin-left: var(--marker-hover-size-half) !important;
-    margin-top: var(--marker-hover-size-half) !important;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1000 !important;
+    img {
+      width: var(--marker-hover-size) !important;
+      height: var(--marker-hover-size) !important;
+      margin-left: var(--marker-hover-size-half) !important;
+      margin-top: var(--marker-hover-size-half) !important;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 1000 !important;
+    }
   }
 }
 
+.artwork {
+  .banner {
+    transform: scaleX(0);
+    transition: all 0.1s ease-in-out;
+    transform-origin: left;
+  }
+
+  &:hover {
+    .banner {
+      transform: scaleX(1);
+    }
+  }
+}
 .museum {
   img {
-    position: absolute;
     border-color: black;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1000;
+  }
+
+  .banner {
+    background-color: var(--BackgroundColorDark);
+    color: white;
   }
 
   .artworkNumber {
@@ -309,40 +347,7 @@ export default {
     transition: all 0.1s ease-in-out;
   }
 
-  .banner {
-    position: absolute;
-    // min-width: calc(var(--marker-size) * 2);
-    top: calc(var(--marker-size) / -2);
-    padding-top: calc(var(--marker-size) / 5);
-    padding-bottom: calc(var(--marker-size) / 5);
-    padding-left: calc(var(--marker-size) / 3);
-    padding-right: calc(var(--marker-size) / 8);
-
-    margin-top: calc(var(--marker-size) / 6.7);
-    margin-bottom: calc(var(--marker-size) / 6.7);
-    margin-right: 0;
-    margin-left: calc(var(--marker-size) * 0.32);
-
-    border-top-right-radius: calc(var(--marker-size) / 10);
-    border-bottom-right-radius: calc(var(--marker-size) / 10);
-    z-index: 100;
-
-    color: white;
-    background-color: var(--BackgroundColorDark);
-    // Force the text to be on one line
-    white-space: nowrap;
-  }
-
   &:hover {
-    img {
-      width: var(--marker-hover-size) !important;
-      height: var(--marker-hover-size) !important;
-      margin-left: var(--marker-hover-size-half) !important;
-      margin-top: var(--marker-hover-size-half) !important;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      z-index: 1000 !important;
-    }
-
     .artworkNumber {
       bottom: calc(var(--marker-hover-size) / 3);
       right: calc(var(--marker-hover-size) / -3);

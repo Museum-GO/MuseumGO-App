@@ -14,15 +14,22 @@ export const constructMuseumsFromArtworks = (artworks) => {
 
   const museums = [];
   artworks.forEach((artwork) => {
+    if (!artwork.location || !artwork.location.coordinates || !artwork._id)
+      return;
+
+    // Get the museum with the same coordinates
     const museum = museums.find((m) => sameCoordinates(m, artwork));
 
     if (museum) {
-      museum.artworks.push(artwork);
+      museum.nbArtworks += 1;
+      museum.name = artwork.location.name || "Museum";
     } else {
       museums.push({
-        type: "Feature",
+        id: artwork._id,
         location: artwork.location,
-        artworks: [artwork],
+        nbArtworks: 1,
+        imageUrl: artwork.image,
+        name: artwork.name,
       });
     }
   });

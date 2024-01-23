@@ -22,10 +22,10 @@ export default {
     return apiClient
       .get(
         `/worksInRectangle
-?bottomLeftLat=${bottomLeftCoordinates[0]}
-&bottomLeftLon=${bottomLeftCoordinates[1]}
-&topRightLat=${topRightCoordinates[0]}
-&topRightLon=${topRightCoordinates[1]}`
+?bottomLeftLat=${bottomLeftCoordinates[1]}
+&bottomLeftLon=${bottomLeftCoordinates[0]}
+&topRightLat=${topRightCoordinates[1]}
+&topRightLon=${topRightCoordinates[0]}`
       )
       .then((response) => {
         return response.data;
