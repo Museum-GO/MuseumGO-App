@@ -8,8 +8,9 @@ db = None  # Wrapper for the Arango MuseumGo database
 WORKS_COLLECTION_NAME = "works"
 
 
-def setup():
-    global db
+def setup(default_collection="works"):
+    global db,WORKS_COLLECTION_NAME
+    print(default_collection)
     # Load config
     config = get_config()
     HOST = config["ARANGODB"]["HOST"]
@@ -17,6 +18,8 @@ def setup():
     DATABASE = config["ARANGODB"]["DATABASE"]
     USER = config["ARANGODB"]["USER"]
     PASSWORD = config["ARANGODB"]["PASSWORD"]
+    # Define WORKS_COLLECTION_NAME
+    WORKS_COLLECTION_NAME=default_collection
 
     # Connect to ArangoDB
     print("\nConnecting to ArangoDB...")

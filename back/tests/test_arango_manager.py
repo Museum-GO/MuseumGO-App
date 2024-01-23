@@ -16,16 +16,16 @@ test_doc_id_1 = None
 test_doc_id_2 = None
 test_doc_id_3 = None
 original_number_of_works = None
+test_collection="test"
 
-
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="module", autouse=True)
 def setup_database():
     # This code will run before the first test
-    setup()
+    setup(test_collection)
 
     # Delete the collection and create it again for test purposes
-    delete_collection_by_name("works")
-    create_collection_by_name("works")
+    delete_collection_by_name(test_collection)
+    create_collection_by_name(test_collection)
 
 
 def test_get_number_of_works():
