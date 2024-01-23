@@ -9,22 +9,22 @@
     </div>
 
     <div class="description">
-      <p class="desc">{{ artwork.description.en }}</p>
+      <p v-if="artwork.description[$i18n.locale]" class="desc"> {{ artwork.description[$i18n.locale] }}</p>
 
       <p class="location">
         <a class="info">{{ $t("Artwork.location") }}:</a> {{ artwork.location.name }}
       </p>
 
       <p class="author">
-        <a class="info">{{ $t("Artwork.author") }}:</a>
-        {{ artwork.artists[0]}}
+        <a class="info">{{ $t("Artwork.author") }}: </a>
+        <a v-for="artist in artwork.artists" :key="artist"> {{ artist }}, </a>
       </p>
 
-      <p class="period">
-        <a class="info">{{ $t("Artwork.period") }}:</a> {{ artwork.creationPeriod.minDate }}
+      <p class="period"> 
+        <a class="info">{{ $t("Artwork.period") }}:</a> {{ artwork.creationPeriod.minDate }}<a v-if="artwork.creationPeriod.maxDate">-{{ artwork.creationPeriod.maxDate }}</a>
       </p>
 
-      <a :href="artwork.wikiLink" target="_blank">{{ $t("Artwork.wiki") }}</a>
+      <a v-if="artwork.wikiLink" :href="artwork.wikiLink" target="_blank">{{ $t("Artwork.wiki") }}</a>
     </div>
   </div>
 </template>

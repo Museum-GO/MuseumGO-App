@@ -10,7 +10,7 @@
     "coordinates": [40.01232, 50.02344],
     "name": "Musée des Offices"
   },
-  "artists": ["Sandro Botticelli"],
+  "artists": ["Sandro Botticelli", "Yves"],
   "type": {
     "fr": "Peinture",
     "en": "Painting"
