@@ -72,6 +72,7 @@ if __name__ == "__main__":
     # Run MuseumGo init
     init()
 
+
     print("\n======================== RUN =======================")
     print(
         "   MuseumGo is available at "

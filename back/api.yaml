@@ -28,7 +28,72 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Work"
+  /works_num:
+    get:
+      operationId: controller.works.get_number_of_works
+      description: Get numbers of works
+    
+      responses:
+            "200":
+              description: numbers of works
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      nbWorks: 
+                        type: number
+                    required:
+                      - nbWorks
+  /works_closest:
+    get:
+      operationId: controller.works.get_closest_works
+      description: Get all works closest
+      parameters:
+        - name: searchField
+          in: query
+          description: The text to search, if empty return all works,
+            Filter the things you want to see with the name, artist, tags and description
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            example: "Mona Lisa"
 
+      responses:
+        "200":
+          description: List of works
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Work"
+  /work/workByType:
+    get:
+      operationId: controller.works.get_work_by_type
+      description: Get work from artWork type
+      parameters:
+        - name: searchField
+          in: query
+          description: The text to search, if empty return all works,
+            Filter the things you want to see with the name, artist, tags and description
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            example: "Mona Lisa"
+
+      responses:
+        "200":
+          description: get work by name
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Work"
+  
 components:
   schemas:
     Work:
@@ -53,3 +118,9 @@ components:
       required:
         - name
         - position
+    NumWork:
+      type: number
+      description: Number of work
+      properties:
+        num:
+          type: number

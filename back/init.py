@@ -8,3 +8,5 @@ def init():
 
     # Init database
     arangoManager.setup()
+
+    print(arangoManager.get_works())

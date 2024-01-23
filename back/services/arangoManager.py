@@ -42,13 +42,13 @@ def setup():
         #     db.delete_collection(WORKS_COLLECTION_NAME)
 
         # Insert few documents into the collection for testing purposes
-        add_work("Mona Lisa", [2.335, 48.861])
-        add_work("The Starry Night", [4.833, 52.367])
-        add_work("The Last Supper", [9.19, 45.464])
-        add_work("The Creation of Adam", [12.483, 41.898])
-        add_work("The Persistence of Memory", [-73.962, 40.781])
-        add_work("The Scream", [10.738, 59.913])
-        add_work("Guernica", [-2.988, 43.319])
+        # add_work("Mona Lisa", [2.335, 48.861])
+        # add_work("The Starry Night", [4.833, 52.367])
+        # add_work("The Last Supper", [9.19, 45.464])
+        # add_work("The Creation of Adam", [12.483, 41.898])
+        # add_work("The Persistence of Memory", [-73.962, 40.781])
+        # add_work("The Scream", [10.738, 59.913])
+        # add_work("Guernica", [-2.988, 43.319])
 
         # Create the collections if they don't exist
         if not db.has_collection(WORKS_COLLECTION_NAME):
@@ -117,11 +117,27 @@ def get_works() -> list:
     # Get all the works in the database
     return list(db.collection(WORKS_COLLECTION_NAME).all())
 
-
 @dbMustBeSetup
 def get_work(work_name):
     work_id = clean_text(work_name)
     return db.collection(WORKS_COLLECTION_NAME).get(work_id)
+
+@dbMustBeSetup
+def get_work_by_type(work_type) -> list:
+
+    #Create the query
+    query = f"""
+FOR work IN {WORKS_COLLECTION_NAME}
+FILTER work.type.en == {work_type}
+SORT work.type.en ASC
+RETURN work
+    """
+
+    # Execute the query
+    cursor = db.aql.execute(query)
+
+    # Return the results
+    return cursor
 
 
 @dbMustBeSetup

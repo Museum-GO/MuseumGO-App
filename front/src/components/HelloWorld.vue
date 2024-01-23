@@ -15,11 +15,15 @@
       <p v-else class="error">{{ $t("HelloWorld.variableIncorrect") }}</p>
     </div>
 
+    <!-- ArtWork display -->
     <div id="works">
       <div class="work" v-for="work in works" :key="work._id">
         <h3>{{ work.name }}</h3>
         <p>{{ work.location.coordinates }}</p>
       </div>
+    </div>
+    <div class="numWork">
+        <p> {{ numWork }}</p>
     </div>
   </div>
 </template>
@@ -34,8 +38,10 @@ export default {
       variable: 10,
       newVariable: 20,
       works: [],
+      numWork: undefined,
     };
   },
+  
   created() {
     // Called when the component is created.
     // Good place to fetch data from API.
@@ -43,6 +49,11 @@ export default {
     api.getWorks().then((works) => {
       this.works = works;
     });
+
+    api.getNumberWorks().then((NumWorks) => {
+      this.numWork = NumWorks;
+    });
+
   },
   mounted() {
     // Called when the component has been mounted in the DOM.

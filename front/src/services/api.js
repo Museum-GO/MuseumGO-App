@@ -18,5 +18,16 @@ export default {
         console.log(error);
       });
   },
+  
+  getNumberWorks() {
+    return apiClient
+      .get("/works_num")
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   // ... other API methods
 };
