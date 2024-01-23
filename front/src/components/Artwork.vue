@@ -9,47 +9,63 @@
     </div>
 
     <div class="description">
-      <p class="description">{{ artwork.description }}</p>
+      <p class="desc">{{ artwork.description.en }}</p>
 
       <p class="location">
-        <a class="info">{{ $t("Artwork.location") }}:</a> {{ artwork.location }}
+        <a class="info">{{ $t("Artwork.location") }}:</a> {{ artwork.location.name }}
       </p>
 
       <p class="author">
         <a class="info">{{ $t("Artwork.author") }}:</a>
-        {{ artwork.authors.join(", ") }}
+        {{ artwork.artists[0]}}
       </p>
 
       <p class="period">
-        <a class="info">{{ $t("Artwork.period") }}:</a> {{ artwork.year }}
+        <a class="info">{{ $t("Artwork.period") }}:</a> {{ artwork.creationPeriod.minDate }}
       </p>
 
-      <a :href="artwork.wikipedia" target="_blank">{{ $t("Artwork.wiki") }}</a>
+      <a :href="artwork.wikiLink" target="_blank">{{ $t("Artwork.wiki") }}</a>
     </div>
   </div>
 </template>
 
 <script>
+import artworkData from '../assets/V0.json';
+
 export default {
   name: "ArtWork",
   data() {
     return {
-      artwork: {
-        image: "../assets/logo.png",
-        name: "Nom de l'œuvre",
-        authors: ["Auteur 1", "Auteur 2"],
-        location: "Ville ou musée",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit.",
-        year: "1999",
-        wikipedia: "https://en.wikipedia.org/wiki/Vue.js#History",
-      },
+      artwork: artworkData,
     };
   },
   created() {
     this.id_artwork = this.$route.params.id_artwork;
   },
 };
+/// TO KEEP BECAUSE IT WILL BE USEFULL WHEN I WILL CALL THE API
+//
+//
+// export default {
+//   name: "ArtWork",
+//   data() {
+//     return {
+//       artwork: null, // laisser null pour l'instant
+//     };
+//   },
+//   created() {
+//   fetch('../assets/v0.json') // Remplacez le chemin d'accès si besoin
+//     .then(response => response.json())
+//     .then(data => {
+//       this.artwork = data;
+//     })
+//     .catch(error => {
+//       console.error('Erreur lors du chargement des données du JSON:', error);
+//     });
+
+//     this.id_artwork = this.$route.params.id_artwork;
+// },
+// };
 </script>
 <style lang="scss" scoped>
 .artwork {
