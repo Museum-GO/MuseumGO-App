@@ -68,13 +68,13 @@ paths:
 
       responses:
         "200":
-          description: List of works in range
+          description: List of works in the rectangle
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/WorkWithDistance"
+                  $ref: "#/components/schemas/Work"
 
 components:
   schemas:
@@ -100,14 +100,3 @@ components:
       required:
         - name
         - position
-
-    WorkWithDistance:
-      allOf:
-        - $ref: "#/components/schemas/Work"
-        - type: object
-          properties:
-            distance:
-              type: number
-              format: double
-          required:
-            - distance

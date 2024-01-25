@@ -133,8 +133,6 @@ RETURN {{work:work, distance,distance}}
     # Execute the query
     cursor = db.aql.execute(query)
 
-    print(cursor)
-
     # Merge the results with the distances
     results = []
     for result in cursor:
