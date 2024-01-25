@@ -37,26 +37,20 @@ export const constructMuseumsFromArtworks = (artworks) => {
 };
 
 export const generateRandomArtwork = (targetCoordinates) => {
-  const artworks = [
-    {
-      location: {
-        coordinates: [48.860611, 2.337644], // Louvre
-      },
-    },
-    {
-      location: {
-        coordinates: [48.8526049229, 2.33466199468], // Eugene Delacroix
-      },
-    },
-  ];
+  const artworks = [];
+  const nbArtworks = Math.floor(Math.random() * 20) + 1;
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < nbArtworks; i++) {
     artworks.push({
+      _id: i,
+      name: "Artwork " + i,
+      image: "https://picsum.photos/200/300",
       location: {
         coordinates: [
           targetCoordinates[0] + (Math.random() - 0.5) * 0.25,
           targetCoordinates[1] + (Math.random() - 0.5) * 0.25,
         ],
+        name: "Place " + i,
       },
     });
   }
@@ -69,7 +63,7 @@ export const generateRandomArtwork = (targetCoordinates) => {
     const randomFeature = artworks[randomIndex];
     artworks.push({
       location: {
-        coordinates: randomFeature.geometry.coordinates,
+        coordinates: randomFeature.location.coordinates,
       },
     });
   }

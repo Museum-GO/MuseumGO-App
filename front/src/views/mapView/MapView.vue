@@ -250,58 +250,77 @@ export default {
   --marker-border-size: 2px;
 }
 
-.marker {
-  img {
-    position: absolute;
+.leaflet-marker-icon {
+  // Hide the default icon
+  background: transparent;
+  border: none;
 
-    width: var(--marker-size) !important;
-    height: var(--marker-size) !important;
-    margin-left: var(--marker-size-half) !important;
-    margin-top: var(--marker-size-half) !important;
+  .marker {
+    // Play animation on appear
+    animation-duration: 0.3s;
+    animation-name: marker-appear;
+    animation-fill-mode: forwards;
 
-    border-radius: 50%;
-    border: var(--marker-border-size) solid white;
-    background-color: white;
-    transition: all 0.1s ease-in-out;
-
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-
-    // Prevent the image to warp when the icon size changes
-    z-index: 1000;
-    object-fit: cover;
-  }
-
-  .banner {
-    position: absolute;
-    // min-width: calc(var(--marker-size) * 2);
-    top: calc(var(--marker-size) / -2);
-    padding-top: calc(var(--marker-size) / 5);
-    padding-bottom: calc(var(--marker-size) / 5);
-    padding-left: calc(var(--marker-size) / 3);
-    padding-right: calc(var(--marker-size) / 8);
-
-    margin-top: calc(var(--marker-size) / 6.7);
-    margin-bottom: calc(var(--marker-size) / 6.7);
-    margin-right: 0;
-    margin-left: calc(var(--marker-size) * 0.32);
-
-    border-top-right-radius: calc(var(--marker-size) / 10);
-    border-bottom-right-radius: calc(var(--marker-size) / 10);
-    z-index: 100;
-
-    background-color: white;
-    // Force the text to be on one line
-    white-space: nowrap;
-  }
-  &:hover {
     img {
-      width: var(--marker-hover-size) !important;
-      height: var(--marker-hover-size) !important;
-      margin-left: var(--marker-hover-size-half) !important;
-      margin-top: var(--marker-hover-size-half) !important;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      z-index: 1000 !important;
+      position: absolute;
+      transition: all 0.1s ease-in-out;
+
+      width: var(--marker-size) !important;
+      height: var(--marker-size) !important;
+      margin-left: var(--marker-size-half) !important;
+      margin-top: var(--marker-size-half) !important;
+
+      border-radius: 50%;
+      border: var(--marker-border-size) solid white;
+      background-color: white;
+
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+      // Prevent the image to warp when the icon size changes
+      z-index: 1000;
+      object-fit: cover;
     }
+
+    .banner {
+      position: absolute;
+      // min-width: calc(var(--marker-size) * 2);
+      top: calc(var(--marker-size) / -2);
+      padding-top: calc(var(--marker-size) / 5);
+      padding-bottom: calc(var(--marker-size) / 5);
+      padding-left: calc(var(--marker-size) / 3);
+      padding-right: calc(var(--marker-size) / 8);
+
+      margin-top: calc(var(--marker-size) / 6.7);
+      margin-bottom: calc(var(--marker-size) / 6.7);
+      margin-right: 0;
+      margin-left: calc(var(--marker-size) * 0.32);
+
+      border-top-right-radius: calc(var(--marker-size) / 10);
+      border-bottom-right-radius: calc(var(--marker-size) / 10);
+      z-index: 100;
+
+      background-color: white;
+      // Force the text to be on one line
+      white-space: nowrap;
+    }
+    &:hover {
+      img {
+        width: var(--marker-hover-size) !important;
+        height: var(--marker-hover-size) !important;
+        margin-left: var(--marker-hover-size-half) !important;
+        margin-top: var(--marker-hover-size-half) !important;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 1000 !important;
+      }
+    }
+  }
+}
+@keyframes marker-appear {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
