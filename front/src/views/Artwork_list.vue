@@ -1,24 +1,20 @@
 <template>
-  <div class="Artwork">
-    <ArtWork :id="0"/>
+  <div class="about">
+    <h1>Here's all the arts</h1>
+    <div class="container">
+      <div class="square" v-for="(art, index) in artwork_list" :key="index">
+        <ArtWorkCard :id="art.id" :title="art.name" :location="art.location.name"/>
+      </div>
+    </div>
   </div>
-
-  <div class="container">
-  <div class="square" v-for="(art, index) in artwork_list" :key="index">
-      <ArtWorkCard :id="art.id" :title="art.name" :location="art.location.name"/>
-  </div>
-</div>
 </template>
 
 <script>
-  import ArtWork from "@/components/Artwork.vue";
   import ArtWorkCard from "@/components/ArtworkCard.vue";
-
   import artworkData_list from '../assets/V0-list.json';
 
   export default {
     components: {
-      ArtWork,
       ArtWorkCard,
     },
     data() {
@@ -27,14 +23,13 @@
       };
     },
 };
+
 </script>
 
 <style lang="scss" scoped>
-.Artwork {
-  display: flex;
-  flex-direction: column;
+.about {
+  padding: 20px;
 }
-
 .container {
   display: flex;
   overflow-x: auto;

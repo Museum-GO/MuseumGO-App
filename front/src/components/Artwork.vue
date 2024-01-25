@@ -2,12 +2,12 @@
   <div class="artwork">
     <div class="top">
       <a class="title info">{{ artwork.name }}</a>
-      <!-- <img alt="Artwork Image" :src="artwork.image" class="image" /> -->
+
       <img alt="Artwork Image" src="../assets/test.jpeg" class="image" />
     </div>
 
     <div class="description">
-      <p v-if="artwork.description[$i18n.locale]" class="desc"> {{ artwork.description[$i18n.locale] }}</p>
+      <p v-if="artwork.description && artwork.description[$i18n.locale]" class="desc"> {{ artwork.description[$i18n.locale] }}</p>
 
       <p class="location">
         <a class="info">{{ $t("Artwork.location") }}:</a> {{ artwork.location.name }}
@@ -15,7 +15,8 @@
 
       <p class="author">
         <a class="info">{{ $t("Artwork.author") }}: </a>
-        <a v-for="artist in artwork.artists" :key="artist"> {{ artist }}, </a>
+        <a v-for="(artist, index) in artwork.artists" :key="index">{{ artist }}<b v-if="index != artwork.artists.length - 1">, </b>
+      </a>
       </p>
 
       <p class="period"> 
@@ -28,42 +29,27 @@
 </template>
 
 <script>
-import artworkData from '../assets/V0.json';
+import artworkData_list from '../assets/V0-list.json';
 
 export default {
   name: "ArtWork",
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
-      artwork: artworkData,
+      artwork: artworkData_list[this.id],
+      id_artwork: null,
     };
   },
   created() {
     this.id_artwork = this.$route.params.id_artwork;
   },
 };
-/// TO KEEP BECAUSE IT WILL BE USEFULL WHEN I WILL CALL THE API
-//
-//
-// export default {
-//   name: "ArtWork",
-//   data() {
-//     return {
-//       artwork: null, // laisser null pour l'instant
-//     };
-//   },
-//   created() {
-//   fetch('../assets/v0.json') // Remplacez le chemin d'accès si besoin
-//     .then(response => response.json())
-//     .then(data => {
-//       this.artwork = data;
-//     })
-//     .catch(error => {
-//       console.error('Erreur lors du chargement des données du JSON:', error);
-//     });
 
-//     this.id_artwork = this.$route.params.id_artwork;
-// },
-// };
 </script>
 <style lang="scss" scoped>
 .artwork {
