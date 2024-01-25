@@ -1,31 +1,25 @@
 <template>
   <div class="Artwork">
-    <ArtWork :id="0"/>
+    <ArtWork :id="this.id_artwork"/>
   </div>
-
-  <div class="container">
-  <div class="square" v-for="(art, index) in artwork_list" :key="index">
-      <ArtWorkCard :id="art.id" :title="art.name" :location="art.location.name"/>
-  </div>
-</div>
 </template>
 
 <script>
   import ArtWork from "@/components/Artwork.vue";
-  import ArtWorkCard from "@/components/ArtworkCard.vue";
 
   import artworkData_list from '../assets/V0-list.json';
 
   export default {
     components: {
       ArtWork,
-      ArtWorkCard,
     },
     data() {
       return {
         artwork_list: artworkData_list
       };
-    },
+    },created() {
+    this.id_artwork = this.$route.params.id_artwork;
+  },
 };
 </script>
 
@@ -33,17 +27,5 @@
 .Artwork {
   display: flex;
   flex-direction: column;
-}
-
-.container {
-  display: flex;
-  overflow-x: auto;
-}
-
-.square{
-  margin-right: 10px;
-}
-.square:last-child {
-  margin-right: 0;
 }
 </style>

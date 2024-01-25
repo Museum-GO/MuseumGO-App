@@ -41,13 +41,9 @@ export default {
   },
   data() {
     return {
-      artwork: artworkData_list[this.id],
-      id_artwork: null,
+      artwork: artworkData_list[this.id]
     };
-  },
-  created() {
-    this.id_artwork = this.$route.params.id_artwork;
-  },
+  }
 };
 
 </script>
