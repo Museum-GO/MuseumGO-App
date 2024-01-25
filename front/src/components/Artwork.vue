@@ -1,11 +1,9 @@
 <template>
   <div class="artwork">
-    <!-- <img alt="Artwork Image" :src="artwork.image" class="image" /> -->
-    <h1>{{ id_artwork }}</h1>
-
     <div class="top">
-      <h2 class="title">{{ artwork.name }}</h2>
-      <img alt="Artwork Image" :src="artwork.image" class="image" />
+      <a class="title info">{{ artwork.name }}</a>
+      <!-- <img alt="Artwork Image" :src="artwork.image" class="image" /> -->
+      <img alt="Artwork Image" src="../assets/test.jpeg" class="image" />
     </div>
 
     <div class="description">
@@ -72,8 +70,11 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 30%;
-  margin-right: 30%;
+  height: 100%;
+  margin-left: 15%;
+  margin-right: 15%;
+  background-color: white;
+  padding: 2%;
 }
 
 .info {
@@ -84,15 +85,20 @@ export default {
   align-items: right;
 }
 
-.image {
-  height: 50%;
-  width: 50%;
-}
-
 .top {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+
+
+  .title{
+    align-items: left;
+  }
+
+  .image {
+    height: 100%;
+    width: 100%;
+    align-items: center;
+  }
 }
 </style>

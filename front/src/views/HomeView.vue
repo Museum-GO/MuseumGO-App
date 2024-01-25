@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <a href="/artwork/test">GO TO ARTWORK</a>
+    
     <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
