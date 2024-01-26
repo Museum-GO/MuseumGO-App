@@ -1,9 +1,5 @@
 <template>
   <div class="about">
-    <h1>Here's all the arts</h1>
-    <div v-for="(art, index) in artwork_list" :key="index">
-      <a :href="'/artwork/' + art.id">{{ art.name }}</a>
-    </div>
     <div class="container">
       <div class="square" v-for="(art, index) in artwork_list" :key="index">
         <ArtWorkCard
@@ -22,6 +18,7 @@ import ArtWorkCard from "@/components/ArtworkCard.vue";
 import artworkData_list from "../assets/V0-list.json";
 
 export default {
+  name: "ArtWorks",
   components: {
     ArtWorkCard,
   },
