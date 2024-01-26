@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <a href="/artwork">GO TO ARTWORK</a>
-    
+
     <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
     <router-link to="/map">Map View</router-link>

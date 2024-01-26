@@ -3,30 +3,34 @@
     <h1>Here's all the arts</h1>
     <div v-for="(art, index) in artwork_list" :key="index">
       <a :href="'/artwork/' + art.id">{{ art.name }}</a>
-      </div>
+    </div>
     <div class="container">
       <div class="square" v-for="(art, index) in artwork_list" :key="index">
-        <ArtWorkCard :id="art.id" :title="art.name" :location="art.location.name"/>
+        <ArtWorkCard
+          :id="art.id"
+          :title="art.name"
+          :location="art.location.name"
+          :image="art.image"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import ArtWorkCard from "@/components/ArtworkCard.vue";
-  import artworkData_list from '../assets/V0-list.json';
+import ArtWorkCard from "@/components/ArtworkCard.vue";
+import artworkData_list from "../assets/V0-list.json";
 
-  export default {
-    components: {
-      ArtWorkCard,
-    },
-    data() {
-      return {
-        artwork_list: artworkData_list
-      };
-    },
+export default {
+  components: {
+    ArtWorkCard,
+  },
+  data() {
+    return {
+      artwork_list: artworkData_list,
+    };
+  },
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -38,7 +42,7 @@
   overflow-x: auto;
 }
 
-.square{
+.square {
   margin-right: 10px;
 }
 .square:last-child {

@@ -1,11 +1,13 @@
 <template>
-    <div class="container">
-    <img class="image" src="../assets/test.jpeg" alt="Nom de l'oeuvre" >
-    <div class="overlay">
-        <h3 class="title">{{title}}</h3>
-        <p class="location">{{location}}</p>
-    </div>
-    </div>
+  <div class="container">
+    <router-link :to="/artwork/ + id">
+      <img class="image" :src="image" alt="IMAGE" />
+      <div class="overlay">
+        <h3 class="title">{{ title }}</h3>
+        <p class="location">{{ location }}</p>
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -14,18 +16,22 @@ export default {
   props: {
     id: {
       type: Number,
-      required: true
+      required: true,
     },
     title: {
-      type: String, // Correction : le type doit être "String" avec une majuscule
-      required: true
+      type: String,
+      required: true,
     },
     location: {
       type: String,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -61,9 +67,4 @@ export default {
 .location {
   font-size: 14px;
 }
-
-
-
-
-
 </style>
