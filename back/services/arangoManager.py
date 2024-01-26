@@ -1,5 +1,4 @@
 from config.init_config import get_config, ERROR_COLOR, DEBUG_COLOR
-from utils.utils import clean_text
 from termcolor import colored
 from arango import ArangoClient, exceptions
 
@@ -113,6 +112,58 @@ RETURN {{work:work, distance,distance}}
 
     # Return the results
     return results
+
+
+@dbMustBeSetup
+def get_works_in_range(longitude, latitude, range) -> list:
+    # Return the works near a location
+
+    # Create the query
+    query = f"""
+FOR work IN {WORKS_COLLECTION_NAME}
+LET distance = DISTANCE(
+    work.location.coordinates[0],
+    work.location.coordinates[1],
+    {longitude},
+    {latitude})
+FILTER distance < {range}
+RETURN {{work:work, distance,distance}}
+    """
+
+    # Execute the query
+    cursor = db.aql.execute(query)
+
+    # Merge the results with the distances
+    results = []
+    for result in cursor:
+        result["work"]["distance"] = result["distance"]
+        results.append(result["work"])
+
+    # Return the results
+    return results
+
+
+@dbMustBeSetup
+def get_works_in_rectangle(
+    bottomLeftLatitude, bottomLeftLongitude, topRightLatitude, topRightLongitude
+) -> list:
+    # Return the works in a rectangle
+
+    # Create the query
+    query = f"""
+FOR work IN {WORKS_COLLECTION_NAME}
+FILTER work.location.coordinates[0] >= {bottomLeftLongitude}
+FILTER work.location.coordinates[0] <= {topRightLongitude}
+FILTER work.location.coordinates[1] >= {bottomLeftLatitude}
+FILTER work.location.coordinates[1] <= {topRightLatitude}
+RETURN work
+    """
+
+    # Execute the query
+    cursor = db.aql.execute(query)
+
+    # Return the results
+    return list(cursor)
 
 
 @dbMustBeSetup

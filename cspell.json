@@ -10,13 +10,17 @@
     "elmt",
     "htmlcov",
     "intlify",
+    "Monalisa",
+    "moveend",
     "museumgo",
     "openapi",
     "pycache",
     "pytest",
     "termcolor",
     "Vetur",
-    "vuex"
+    "vuex",
+    "werkzeug",
+    "zoomend"
   ],
   "flagWords": [],
   "ignorePaths": [
