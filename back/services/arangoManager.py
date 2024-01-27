@@ -7,10 +7,10 @@ db = None  # Wrapper for the Arango MuseumGo database
 
 WORKS_COLLECTION_NAME = "works"
 
-
-def setup(default_collection="works"):
+#setup handle a variable default_collection with a default value at work
+#this function can create now handle a new collection by default if this parameter is define
+def setup():
     global db,WORKS_COLLECTION_NAME
-    print(default_collection)
     # Load config
     config = get_config()
     HOST = config["ARANGODB"]["HOST"]
@@ -19,7 +19,6 @@ def setup(default_collection="works"):
     USER = config["ARANGODB"]["USER"]
     PASSWORD = config["ARANGODB"]["PASSWORD"]
     # Define WORKS_COLLECTION_NAME
-    WORKS_COLLECTION_NAME=default_collection
 
     # Connect to ArangoDB
     print("\nConnecting to ArangoDB...")
@@ -36,7 +35,10 @@ def setup(default_collection="works"):
     db = client.db(DATABASE, username=USER, password=PASSWORD)
     print(" - Connection established")
 
-
+def setup_collection(collection_name):
+    global WORKS_COLLECTION_NAME
+    WORKS_COLLECTION_NAME=collection_name
+    
 def dbMustBeSetup(func):
     def wrapper_dbMustBeSetup(*args, **kwargs):
         if db is None:
