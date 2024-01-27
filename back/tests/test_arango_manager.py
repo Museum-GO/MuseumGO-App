@@ -24,7 +24,7 @@ test_collection="test"
 def setup_database():
     # This code will run before the first test
     setup()
-    # Define a specific collection to compatmentalised our tests
+    # Define a specific collection to isolate our tests from the default collection
     setup_collection("test")
 
     # Delete the collection and create it again for test purposes
