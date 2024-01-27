@@ -51,7 +51,7 @@ jobs:
   python-tests: # Install dependencies and run tests with pytest
     name: Python tests
     needs:
-      [black-format-check, prettier-check, cspell-check, version-upgrade-check]
+      [black-format-check, prettier-check, cspell-check]
     runs-on: ubuntu-latest
 
     permissions:

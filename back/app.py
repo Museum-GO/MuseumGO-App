@@ -1,6 +1,7 @@
 import connexion
 import os
 import requests
+import werkzeug.exceptions
 from termcolor import colored
 from flask_cors import CORS
 from flask import send_from_directory, request, Response
@@ -23,13 +24,21 @@ def send_frontend(path):
 
     # If production, use the index.html from the dist folder
     if os.getenv("FLASK_ENV") == "production":
-        return send_from_directory("dist", path)
+        try:
+            return send_from_directory("dist", path)
+        except werkzeug.exceptions.NotFound:
+            return send_frontend("/")
 
     # In development, redirect to the DEV_FRONTEND_URL
     else:
         if request.method == "GET":
             try:
-                resp = requests.get(f"{DEV_FRONTEND_URL}{path}")
+                req = f"{DEV_FRONTEND_URL}{path}"
+                resp = requests.get(req)
+
+                if resp.status_code == 404:
+                    return send_frontend("/")
+
                 excluded_headers = [
                     "content-encoding",
                     "content-length",
@@ -45,13 +54,11 @@ def send_frontend(path):
                 return response
             except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
                 return (
-                    "You are in a development environment and the MuseumGo frontend "
-                    + "is not available at the url : "
+                    "You are in a development environment and the MuseumGo\
+ frontend is not available at the url : "
                     + DEV_FRONTEND_URL,
                     503,
                 )
-        else:
-            print("Unexpected request method")
 
 
 # For serving the dashboard
