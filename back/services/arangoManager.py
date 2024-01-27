@@ -10,7 +10,7 @@ WORKS_COLLECTION_NAME = "works"
 # setup handle a variable default_collection with a default value at work
 # this function can create now handle a new collection by default if this parameter is define
 def setup():
-    global db, WORKS_COLLECTION_NAME
+    global db
     # Load config
     config = get_config()
     HOST = config["ARANGODB"]["HOST"]
@@ -18,7 +18,6 @@ def setup():
     DATABASE = config["ARANGODB"]["DATABASE"]
     USER = config["ARANGODB"]["USER"]
     PASSWORD = config["ARANGODB"]["PASSWORD"]
-    # Define WORKS_COLLECTION_NAME
 
     # Connect to ArangoDB
     print("\nConnecting to ArangoDB...")
@@ -36,7 +35,8 @@ def setup():
     print(" - Connection established")
 
 
-def setup_collection(collection_name):
+# This procedure is used to change the works collection
+def setup_works_collection_name(collection_name):
     global WORKS_COLLECTION_NAME
     WORKS_COLLECTION_NAME = collection_name
 
