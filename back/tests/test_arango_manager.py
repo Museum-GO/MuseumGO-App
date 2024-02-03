@@ -10,6 +10,7 @@ from services.arangoManager import (
     get_works_in_rectangle,
     delete_collection_by_name,
     create_collection_by_name,
+    setup_works_collection_name,
 )
 import pytest
 
@@ -17,16 +18,25 @@ test_doc_id_1 = None
 test_doc_id_2 = None
 test_doc_id_3 = None
 original_number_of_works = None
+artwork_test_collection = "artwork_test"
 
 
-@pytest.fixture(scope="session", autouse=True)
+# The scope module is define to use the setup database function for all tests
+@pytest.fixture(scope="module", autouse=True)
 def setup_database():
     # This code will run before the first test
     setup()
+    # Define a specific collection to isolate our tests from the default collection
+    setup_works_collection_name("artwork_test")
 
     # Delete the collection and create it again for test purposes
-    delete_collection_by_name("works")
-    create_collection_by_name("works")
+    delete_collection_by_name(artwork_test_collection)
+    create_collection_by_name(artwork_test_collection)
+
+    # At the end of the tests, delete the collection
+    yield
+
+    delete_collection_by_name(artwork_test_collection)
 
 
 def test_get_number_of_works():

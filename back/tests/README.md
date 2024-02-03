@@ -2,7 +2,6 @@
 
 ```bash
 pip3 install coverage pytest pytest-cov
-cd tests
 pytest --cov-report term --cov=. --cov-report=html
 ```
 
