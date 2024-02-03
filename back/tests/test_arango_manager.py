@@ -33,6 +33,11 @@ def setup_database():
     delete_collection_by_name(artwork_test_collection)
     create_collection_by_name(artwork_test_collection)
 
+    # At the end of the tests, delete the collection
+    yield
+
+    delete_collection_by_name(artwork_test_collection)
+
 
 def test_get_number_of_works():
     global original_number_of_works
