@@ -20,6 +20,21 @@ const routes = [
         path: "/about",
         component: () => import("../views/AboutView.vue"),
       },
+      {
+        name: "artwork",
+        path: "/artwork/:id_artwork",
+        component: () => import("../views/ArtworkView.vue"),
+      },
+      {
+        name: "artwork_list",
+        path: "/artwork",
+        component: () => import("../views/Artwork_list.vue"),
+      },
+      {
+        name: "null",
+        path: "/:pathMatch(.*)*",
+        component: () => import("../views/nullView.vue"),
+      },
     ],
   },
 ];

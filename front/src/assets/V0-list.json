@@ -1,0 +1,202 @@
+[
+    {
+      "id": 0,
+      "name": "Allegoria de la Primavera",
+      "image": "../assets/test.jpeg",
+      "description": {
+        "fr": "Le Printemps (Primavera en italien prononcé : [primaˈvɛra]) est une peinture allégorique de Sandro Botticelli, exécutée à tempera sur panneau de bois entre 1478 et 1482, période de la Première Renaissance. Elle a été décrite comme « l'une des peintures les plus commentées et les plus controversées au monde », et aussi « l'une des peintures les plus populaires de l'art occidental »",
+        "en": "Primavera (Italian pronunciation: [primaˈvɛːra], meaning 'Spring'), is a large panel painting in tempera paint by the Italian Renaissance painter Sandro Botticelli made in the late 1470s or early 1480s (datings vary). It has been described as 'one of the most written about, and most controversial paintings in the world', and also 'one of the most popular paintings in Western art'"
+      },
+      "location": {
+        "coordinates": [40.01232, 50.02344],
+        "name": "Musée des Offices"
+      },
+      "artists": ["Sandro Botticelli"],
+      "type": {
+        "fr": "Peinture",
+        "en": "Painting"
+      },
+      "creationPeriod": {
+        "minDate": 1478,
+        "maxDate": 1482
+      },
+      "wikiLink": "https://fr.wikipedia.org/wiki/Le_Printemps_(Botticelli)"
+    },
+    {
+      "id": 1,
+      "name": "Untitled Sculpture 1",
+      "image": "https://example.com/sculpture1",
+      "artists": ["anon"],
+      "type": {
+        "fr": "Sculpture",
+        "en": "Sculpture"
+      },
+      "location": {
+        "coordinates": [43.78825, 5.24735],
+        "name": "Musée d'Orsay"
+      },
+      "creationPeriod": {
+        "minDate": 1600
+      }
+    },
+    {
+      "id": 2,
+      "name": "Mona Lisa",
+      "image": "https://upload.wikimedia.org/monalisa",
+      "description": {
+        "fr": "La Joconde, également connue sous le nom de Mona Lisa, est un portrait de la Renaissance italienne peint au début du XVIe siècle. Elle est l'une des œuvres d'art les plus célèbres et les plus étudiées au monde.",
+        "en": "The Mona Lisa, also known as La Gioconda in Italian, is a portrait painting of the Italian Renaissance created in the early 16th century. It is one of the most famous and studied works of art in the world."
+      },
+      "location": {
+        "coordinates": [48.860611, 2.337643],
+        "name": "Musée du Louvre"
+      },
+      "artists": ["Leonardo da Vinci"],
+      "type": {
+        "fr": "Peinture",
+        "en": "Painting"
+      },
+      "creationPeriod": {
+        "minDate": 1503,
+        "maxDate": 1506
+      },
+      "wikiLink": "https://en.wikipedia.org/wiki/Mona_Lisa"
+    },
+    {
+      "id": 3,
+      "name": "Anonymous Sculpture 2",
+      "image": "https://example.com/sculpture2",
+      "artists": ["anon"],
+      "type": {
+        "fr": "Sculpture",
+        "en": "Sculpture"
+      },"location": {
+        "coordinates": [48.860611, 2.337643],
+        "name": "Musée du Louvre"
+      },
+      "creationPeriod": {
+        "minDate": 1700
+      }
+    },
+    {
+      "id": 4,
+      "name": "Starry Night",
+      "image": "https://upload.wikimedia.org/starrynight",
+      "description": {
+        "fr": "La Nuit étoilée est une peinture de l'artiste post-impressionniste Vincent van Gogh. Réalisée en juin 1889, elle représente le ciel nocturne au-dessus de la ville de Saint-Rémy-de-Provence.",
+        "en": "Starry Night is a painting by the post-impressionist artist Vincent van Gogh. Created in June 1889, it depicts the night sky above the town of Saint-Rémy-de-Provence."
+      },
+      "location": {
+        "coordinates": [43.78825, 5.24735],
+        "name": "Musée d'Orsay"
+      },
+      "artists": ["Vincent van Gogh"],
+      "type": {
+        "fr": "Peinture",
+        "en": "Painting"
+      },
+      "creationPeriod": {
+        "minDate": 1889
+      },
+      "wikiLink": "https://en.wikipedia.org/wiki/Starry_Night"
+    },
+    {
+      "id": 5,
+      "name": "Anonymous Painting 1",
+      "image": "https://example.com/painting1",
+      "artists": ["anon"],"location": {
+        "coordinates": [48.860611, 2.337643],
+        "name": "Musée du Louvre"
+      },
+      "type": {
+        "fr": "Peinture",
+        "en": "Painting"
+      },
+      "creationPeriod": {
+        "minDate": 1750
+      }
+    },
+    {
+      "id": 6,
+      "name": "The Thinker",
+      "image": "https://upload.wikimedia.org/thethinker",
+      "description": {
+        "fr": "Le Penseur est une sculpture réalisée par Auguste Rodin. Initialement partie intégrante de la porte de l'Enfer, elle a été achevée en 1882. La statue représente un homme en méditation profonde.",
+        "en": "The Thinker is a sculpture by Auguste Rodin. Originally part of The Gates of Hell, it was completed in 1882. The statue depicts a man in deep contemplation."
+      },
+      "location": {
+        "coordinates": [48.83571, 2.32507],
+        "name": "Musée Rodin"
+      },
+      "artists": ["Auguste Rodin"],
+      "type": {
+        "fr": "Sculpture",
+        "en": "Sculpture"
+      },
+      "creationPeriod": {
+        "minDate": 1882
+      },
+      "wikiLink": "https://en.wikipedia.org/wiki/The_Thinker"
+    },
+    {
+      "id": 7,
+      "name": "Sunflowers",
+      "image": "https://upload.wikimedia.org/sunflowers",
+      "description": {
+        "fr": "Les Tournesols est une série de peintures réalisée par Vincent van Gogh. La version la plus connue a été peinte en 1888 et fait partie de la collection de la National Gallery à Londres.",
+        "en": "Sunflowers is a series of paintings by Vincent van Gogh. The most famous version was painted in 1888 and is part of the collection of the National Gallery in London."
+      },
+      "location": {
+        "coordinates": [51.50893, -0.12803],
+        "name": "National Gallery"
+      },
+      "artists": ["Vincent van Gogh"],
+      "type": {
+        "fr": "Peinture",
+        "en": "Painting"
+      },
+      "creationPeriod": {
+        "minDate": 1888
+      },
+      "wikiLink": "https://en.wikipedia.org/wiki/Sunflowers_(Van_Gogh_series)"
+    },
+    {
+      "id": 8,
+      "name": "Anonymous Painting 2",
+      "image": "https://example.com/painting2",
+      "artists": ["anon"],"location": {
+        "coordinates": [48.860611, 2.337643],
+        "name": "Musée du Louvre"
+      },
+      "type": {
+        "fr": "Peinture",
+        "en": "Painting"
+      },
+      "creationPeriod": {
+        "minDate": 1650
+      }
+    },
+    {
+      "id": 9,
+      "name": "Eiffel Tower",
+      "image": "https://upload.wikimedia.org/eiffeltower",
+      "description": {
+        "fr": "La Tour Eiffel est une tour de fer puddlé de 324 mètres de hauteur située à Paris, construite en 1889. Elle est devenue l'un des symboles les plus reconnaissables de la France et du monde.",
+        "en": "The Eiffel Tower is a puddle iron tower 324 meters high located in Paris, built in 1889. It has become one of the most recognizable symbols of France and the world."
+      },
+      "location": {
+        "coordinates": [48.858844, 2.29435],
+        "name": "Paris, France"
+      },
+      "artists": ["Gustave Eiffel"],
+      "type": {
+        "fr": "Bâtiment",
+        "en": "Building"
+      },
+      "creationPeriod": {
+        "minDate": 1889
+      },
+      "wikiLink": "https://en.wikipedia.org/wiki/Eiffel_Tower"
+    }
+  ]
+  

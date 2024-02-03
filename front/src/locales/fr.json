@@ -11,5 +11,11 @@
     "search-bar": "Recherche",
     "fr": "FR",
     "eng": "ENG"
+  },
+  "Artwork": {
+    "location": "Localisation",
+    "author": "Auteur(s)",
+    "period": "Annee",
+    "wiki": "Plus d'informations sur Wikipédia"
   }
 }
