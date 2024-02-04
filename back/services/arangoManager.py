@@ -21,18 +21,25 @@ def setup():
 
     # Connect to ArangoDB
     print("\nConnecting to ArangoDB...")
-    print(" - Initializing client")
-    print(f"   - Host: {colored(HOST, DEBUG_COLOR)}")
-    print(f"   - Port: {colored(PORT, DEBUG_COLOR)}")
-    print(f"   - Database: {colored(DATABASE, DEBUG_COLOR)}")
-    print(f"   - User: {colored(USER, DEBUG_COLOR)}")
+    print(f" - Host: {colored(HOST, DEBUG_COLOR)}")
+    print(f" - Port: {colored(PORT, DEBUG_COLOR)}")
+    print(f" - Database: {colored(DATABASE, DEBUG_COLOR)}")
+    print(f" - User: {colored(USER, DEBUG_COLOR)}")
 
     # Initialize the ArangoDB client.
-    client = ArangoClient(hosts=f"http://{HOST}:{PORT}")
+    client = ArangoClient(hosts=f"http://{HOST}:{PORT}", resolver_max_tries=1)
 
     # Connect to the MuseumGo database
     db = client.db(DATABASE, username=USER, password=PASSWORD)
-    print(" - Connection established")
+
+    # Test the connection
+    try:
+        # Assuming `sys_db` is your system database connection from the previous step
+        version = db.version()
+        print(f" - Connection to Arango {version} established")
+    except ConnectionAbortedError:
+        print(" - Connection failed")
+        raise ConnectionAbortedError(f"Failed to connect to ArangoDB at {HOST} {PORT}")
 
 
 # This procedure is used to change the works collection
