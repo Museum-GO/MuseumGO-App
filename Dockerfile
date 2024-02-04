@@ -1,11 +1,11 @@
-# Embeducation Vuejs Frontend
+# Vuejs Frontend
 FROM node:lts-alpine as build-stage
 WORKDIR /front
 COPY front/ .
 RUN npm install
 RUN npm run build
 
-# Embeducation Python Backend
+# Python Backend
 FROM python:3.10-slim-buster
 WORKDIR /back
 COPY back/ .

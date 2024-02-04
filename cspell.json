@@ -20,7 +20,11 @@
     "Vetur",
     "vuex",
     "werkzeug",
-    "zoomend"
+    "zoomend",
+    "traefik",
+    "tomansion",
+    "Vuejs",
+    "pypi"
   ],
   "flagWords": [],
   "ignorePaths": [
