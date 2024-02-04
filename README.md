@@ -153,3 +153,9 @@ To run the app in headless mode, use:
 ```bash
 docker-compose up -d
 ```
+
+To stop the app, use:
+
+```bash
+docker-compose down
+```
