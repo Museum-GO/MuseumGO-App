@@ -4,9 +4,8 @@ on:
   push:
     branches:
       - main
-      - 29-deploy-the-application
-    # tags:
-    #   - "v[0-9]+.[0-9]+.[0-9]+"
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
   build:
@@ -28,8 +27,9 @@ jobs:
 
       - name: Tag the Docker image with latest and the tag name
         run: |
+          echo ${{ github.sha }}
           docker tag museumgo_app tomansion/museumgo_app:latest
-          # docker tag museumgo_app tomansion/museumgo_app:${{ github.sha }}
+          docker tag museumgo_app tomansion/museumgo_app:${{ github.sha }}
 
       - name: Upload Docker image to Docker Hub
         run: docker push tomansion/museumgo_app --all-tags

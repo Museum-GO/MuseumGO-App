@@ -159,3 +159,7 @@ To stop the app, use:
 ```bash
 docker-compose down
 ```
+
+### Continuous deployment
+
+This app is deployed on [http://museumgo.tomansion.fr/](http://museumgo.tomansion.fr/) using a GitHub Actions workflow. The workflow is triggered when a new tag is pushed to the repository on the `main` branch.
