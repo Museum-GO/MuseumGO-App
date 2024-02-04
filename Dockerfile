@@ -13,4 +13,3 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 COPY --from=build-stage /front/dist dist
 ENV FLASK_ENV production
 CMD ["python", "app.py"]
-

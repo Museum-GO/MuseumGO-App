@@ -46,4 +46,4 @@ jobs:
           username: ${{secrets.REMOTE_USER}}
           password: ${{secrets.REMOTE_PASSWORD}}
           port: ${{secrets.REMOTE_PORT}}
-          script: /home/tomansion/web/museumgo/updateapp.sh
+          script: /usr/local/bin/update_museumgo_app/update_museumgo_app.sh
