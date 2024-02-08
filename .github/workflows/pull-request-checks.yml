@@ -10,7 +10,7 @@ on:
 jobs:
   black-format-check: # Check that the back codebase is formatted with black
     name: Black format check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
@@ -26,7 +26,7 @@ jobs:
 
   prettier-check: # Check that the front codebase is formatted with prettier
     name: Prettier format check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Set up Node 18
@@ -38,7 +38,7 @@ jobs:
 
   cspell-check: # Check that the project does not contain spelling errors
     name: CSpell check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Set up Node 18
@@ -50,9 +50,8 @@ jobs:
 
   python-tests: # Install dependencies and run tests with pytest
     name: Python tests
-    needs:
-      [black-format-check, prettier-check, cspell-check]
-    runs-on: ubuntu-latest
+    needs: [black-format-check, prettier-check, cspell-check]
+    runs-on: python-3.8
 
     permissions:
       pull-requests: write
@@ -68,10 +67,6 @@ jobs:
     steps:
       # Run the tests
       - uses: actions/checkout@v3
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
       - name: Install dependencies
         run: |
           cd back

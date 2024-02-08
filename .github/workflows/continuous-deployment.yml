@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Build the docker image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout repository
@@ -37,7 +37,7 @@ jobs:
   deploy:
     needs: build
     name: Deploy to hosted server
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Remote ssh
         uses: appleboy/ssh-action@master
