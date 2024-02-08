@@ -51,7 +51,10 @@ jobs:
   python-tests: # Install dependencies and run tests with pytest
     name: Python tests
     needs: [black-format-check, prettier-check, cspell-check]
-    runs-on: python-3.8
+    runs-on: ubuntu-20.04
+
+    container:
+      image: python:3.8
 
     permissions:
       pull-requests: write
