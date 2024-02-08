@@ -287,7 +287,7 @@ export default {
       top: calc(var(--marker-size) / -2);
       padding-top: calc(var(--marker-size) / 5);
       padding-bottom: calc(var(--marker-size) / 5);
-      padding-left: calc(var(--marker-size) / 3);
+      padding-left: calc(var(--marker-size) / 2.5);
       padding-right: calc(var(--marker-size) / 8);
 
       margin-top: calc(var(--marker-size) / 6.7);
@@ -329,6 +329,7 @@ export default {
     transform: scaleX(0);
     transition: all 0.1s ease-in-out;
     transform-origin: left;
+    padding-left: calc(var(--marker-size) / 2) !important;
   }
 
   &:hover {
@@ -344,7 +345,6 @@ export default {
 
   .banner {
     background-color: var(--BackgroundColorDark);
-    color: white;
   }
 
   .artworkNumber {
@@ -353,7 +353,7 @@ export default {
     min-width: calc(var(--marker-size) / 3);
     height: calc(var(--marker-size) / 3);
     position: absolute;
-    bottom: calc(var(--marker-size) / 3);
+    bottom: calc(var(--marker-size) / 5);
     right: calc(var(--marker-size) / -3);
     padding: 2px;
     border-radius: 50px;
@@ -368,7 +368,7 @@ export default {
 
   &:hover {
     .artworkNumber {
-      bottom: calc(var(--marker-hover-size) / 3);
+      bottom: calc(var(--marker-hover-size) / 4);
       right: calc(var(--marker-hover-size) / -3);
     }
   }
