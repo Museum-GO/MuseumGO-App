@@ -103,3 +103,63 @@ npm run spellcheck
   - [Cspell](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
   - [i18n Ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally)
+
+## Deployment guide
+
+### Requirements:
+
+- Docker v24.0.5
+
+### Local Docker deployment
+
+Build the docker image:
+
+```bash
+docker build -t museumgo .
+```
+
+Run the docker image:
+
+```bash
+docker run -p 3000:3000 museumgo
+```
+
+The app is now available at [http://localhost:3000](http://localhost:3000)
+
+Instead of using the `back/config/config.ini` file, you can use environment variables to configure the app:
+
+```bash
+docker run -p 3000:3000 \
+  -e MUSEUMGO_ARANGODB_HOST=... \
+  -e MUSEUMGO_ARANGODB_PORT=... \
+  -e MUSEUMGO_ARANGODB_DATABASE=... \
+  -e MUSEUMGO_ARANGODB_USER=...  \
+  -e MUSEUMGO_ARANGODB_PASSWORD=... \
+  museumgo
+```
+
+### Local Docker Compose deployment
+
+You can use the `docker-compose.yml` file to deploy the app with a local ArangoDB instance. Edit the `docker-compose.yml` file to set your ArangoDB credentials and then run:
+
+```bash
+docker-compose up
+```
+
+The app is now available at [http://localhost:3000](http://localhost:3000)
+
+To run the app in headless mode, use:
+
+```bash
+docker-compose up -d
+```
+
+To stop the app, use:
+
+```bash
+docker-compose down
+```
+
+### Continuous deployment
+
+This app is deployed on [http://museumgo.tomansion.fr/](http://museumgo.tomansion.fr/) using a GitHub Actions workflow. The workflow is triggered when a new tag is pushed to the repository on the `main` branch.

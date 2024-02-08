@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  museumgo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      # == ArangoDB ====
+      - MUSEUMGO_ARANGODB_HOST=...
+      - MUSEUMGO_ARANGODB_PORT=...
+      - MUSEUMGO_ARANGODB_DATABASE=...
+      - MUSEUMGO_ARANGODB_USER=...
+      - MUSEUMGO_ARANGODB_PASSWORD=...
+    container_name: museumgo
+    restart: always
+    labels:
+      - traefik.frontend.rule=Host:museumgo.tomansion.fr
+      - traefik.port=3000
+    ports:
+      - 3000:3000
