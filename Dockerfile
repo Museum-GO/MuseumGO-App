@@ -6,7 +6,7 @@ RUN npm install
 RUN npm run build
 
 # Python Backend
-FROM python:3.10-slim-buster
+FROM python:3.8-slim-buster
 WORKDIR /back
 COPY back/ .
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
