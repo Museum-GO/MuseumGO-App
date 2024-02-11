@@ -27,14 +27,14 @@ for artwork in data["results"]:
     current_model["name"]=artwork["titre"]
     ###############################################
     image=artwork["lien_inha"]
-    page=requests.get("http://www.purl.org/inha/agorha/003/28751")
+    page=requests.get(image)
     soup = BeautifulSoup(page.content, "html.parser")
     result_dom=soup.find_all('img')
     for current_class in result_dom:
         if("https://agorha" in current_class.get("src")):
             current_model["image"]=current_class["src"]
-
-    current_model["description"]["fr"]=artwork["description"]
+    if(artwork["description"]is not None):
+      current_model["description"]["fr"]=artwork["description"]
     coordinates=list()
     coordinates.append(artwork["coordonnees"]["lon"])
     coordinates.append(artwork["coordonnees"]["lat"])
@@ -42,7 +42,7 @@ for artwork in data["results"]:
     current_model["location"]["name"]=artwork["nom_officiel_musee"]
     current_model["type"]["fr"]=artwork["denomination"]
     current_model["creationPeriod"]["minDate"]=artwork["periode_de_creation"]
-
+    current_model["artists"]=artwork["auteur"].split(";")
 
     my_docs.append(current_model)
 
